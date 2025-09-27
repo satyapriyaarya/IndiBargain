@@ -7,10 +7,13 @@ import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+import ApiIcon from '@mui/icons-material/Api';
+
 const navItems = [
   { label: 'Memes', icon: <InsertEmoticonIcon />, path: '/memes' },
   { label: 'Facts', icon: <EmojiObjectsIcon />, path: '/facts' },
   { label: 'Recipes', icon: <RestaurantIcon />, path: '/recipes' },
+  { label: 'FakeAPI', icon: <ApiIcon />, path: '/FakeAPI' },
 ];
 
 export default function Footer() {
