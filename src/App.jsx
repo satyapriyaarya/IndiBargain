@@ -56,8 +56,8 @@ function App() {
           pb: 7,
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
           position: 'relative',
+          width: '100%',
         }}>
           <Header />
           <Box sx={{ flex: 1, width: '100%' }}>
