@@ -8,6 +8,9 @@ import Footer from './components/Footer';
 import Memes from './components/Memes';
 import Facts from './components/Facts';
 import Recipes from './components/Recipes';
+import FakeAPI from './components/FakeAPI';
+import HomePage from './components/HomePage';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CircularProgress, Alert, Box as MuiBox } from '@mui/material';
 
 const theme = createTheme({
@@ -43,78 +46,32 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Helper to wrap each tab with loading/error logic
-  const renderTab = () => {
-    if (tab === 0) return <Memes setLoading={setLoading} setError={setError} />;
-    if (tab === 1) return <Facts setLoading={setLoading} setError={setError} />;
-    if (tab === 2) return <Recipes setLoading={setLoading} setError={setError} />;
-    return null;
-  };
-
+  // ...existing code...
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box sx={{
-        minHeight: '100vh',
-        pb: 7,
-        background: `#fff url('data:image/svg+xml;utf8,${encodeURIComponent(indianPatterns.paisley)}') repeat top left`,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        position: 'relative',
-      }}>
-        <Header />
+      <Router>
         <Box sx={{
-          pt: 4,
-          pb: 10,
-          px: { xs: 1, sm: 2, md: 4 },
-          width: '100%',
+          minHeight: '100vh',
+          pb: 7,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          position: 'relative',
         }}>
-          {renderTab()}
+          <Header />
+          <Box sx={{ flex: 1, width: '100%' }}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/memes" element={<Memes setLoading={setLoading} setError={setError} />} />
+              <Route path="/facts" element={<Facts setLoading={setLoading} setError={setError} />} />
+              <Route path="/recipes" element={<Recipes setLoading={setLoading} setError={setError} />} />
+              <Route path="/FakeAPI" element={<FakeAPI />} />
+            </Routes>
+          </Box>
+          <Footer />
         </Box>
-        <Footer value={tab} onChange={(_, v) => setTab(v)} />
-        {(loading || error) && (
-          <MuiBox sx={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: '100vw',
-            height: '100vh',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            zIndex: 2000,
-            background: `#fff url('data:image/svg+xml;utf8,${encodeURIComponent(indianPatterns.lotus)}') repeat center center`,
-          }}>
-            {loading && (
-              <span style={{
-                fontSize: 32,
-                fontWeight: 700,
-                color: '#ff9933',
-                fontFamily: 'Poppins, Roboto, Arial, sans-serif',
-                letterSpacing: 1.2,
-                textShadow: '1px 1px 0 #fff, 2px 2px 8px #ffd700',
-              }}>
-                Loading...
-              </span>
-            )}
-            {error && <Alert severity="error" sx={{ fontSize: 24, ml: 2 }}>{error}</Alert>}
-            {/* Decorative Indian icon bottom right */}
-            <span style={{
-              position: 'absolute',
-              bottom: 32,
-              right: 32,
-              opacity: 0.7,
-              pointerEvents: 'none',
-            }}
-              dangerouslySetInnerHTML={{ __html: indianIcons.diya }}
-            />
-          </MuiBox>
-        )}
-      </Box>
+      </Router>
     </ThemeProvider>
   );
 }
