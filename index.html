@@ -33,7 +33,7 @@
             <a href="#articles">Deep Dives</a>
             <a href="#fun">Fun Facts</a>
             <a href="#gallery">Visuals</a>
-            <a href="contact.html">Contact</a>
+            <a href="#contact" data-action="contact">Contact</a>
         </nav>
         <a class="cta ghost" href="https://github.com/satyapriyaarya/IndiBargain" target="_blank" rel="noopener">GitHub</a>
     </header>
@@ -110,7 +110,7 @@
     </main>
 
     <footer class="site-footer">
-        <p>Crafted in India · Powered by open APIs · <a href="contact.html">Reach out</a></p>
+        <p>Crafted in India · Powered by open APIs · <a href="#contact" data-action="contact">Reach out</a></p>
     </footer>
 
     <dialog id="notifyDialog">
@@ -126,6 +126,46 @@
                 <button value="submit" class="cta">Send</button>
             </menu>
         </form>
+    </dialog>
+
+    <dialog id="contactDialog" class="contact-dialog">
+        <button class="dialog-close" type="button" data-close="contact" aria-label="Close contact form">×</button>
+        <div class="contact-shell">
+            <article class="contact-copy">
+                <p class="eyebrow">Say hello</p>
+                <h2>Drop ideas, collabs, or scoops</h2>
+                <p class="lede">Messages land directly in the IndiBargain inbox (no email exposed). Expect a human reply within 24 hours.</p>
+                <ul class="contact-list">
+                    <li>🪄 Product feedback</li>
+                    <li>🤝 Partnership requests</li>
+                    <li>📣 Press or speaking</li>
+                    <li>💡 Story tips</li>
+                </ul>
+            </article>
+            <form id="contactForm" class="contact-form" novalidate>
+                <div id="contactNotice" class="contact-notice" role="status" hidden></div>
+                <label class="input-field">
+                    <span>Your name</span>
+                    <input type="text" name="name" required placeholder="Ananya Singh">
+                </label>
+                <label class="input-field">
+                    <span>Reply email</span>
+                    <input type="email" name="email" required placeholder="you@example.com">
+                </label>
+                <label class="input-field">
+                    <span>What is on your mind?</span>
+                    <textarea name="message" rows="4" required placeholder="Pitch us your idea or describe the bug you spotted."></textarea>
+                </label>
+                <label class="input-checkbox">
+                    <input type="checkbox" name="subscribe" value="Yes">
+                    <span>Also send me the weekly AI Briefing</span>
+                </label>
+                <div class="form-meta">
+                    <button class="cta secondary" type="button" data-close="contact">Cancel</button>
+                    <button class="cta" type="submit" id="contactSubmit">Send message</button>
+                </div>
+            </form>
+        </div>
     </dialog>
 
     <script src="assets/js/app.js" defer></script>

@@ -1,5 +1,6 @@
 const newsEndpoint = "https://hn.algolia.com/api/v1/search_by_date?query=artificial%20intelligence&tags=story&hitsPerPage=6";
 const factEndpoint = "https://uselessfacts.jsph.pl/random.json?language=en";
+const contactEndpoint = "https://formsubmit.co/ajax/satyapriyaarya@gmail.com";
 const fallbackNews = [
     {
         title: "Open-source copilots hit production",
@@ -70,6 +71,10 @@ const dom = {
     metricArticles: document.getElementById("metric-articles"),
     metricFacts: document.getElementById("metric-facts"),
     notifyDialog: document.getElementById("notifyDialog"),
+    contactDialog: document.getElementById("contactDialog"),
+    contactForm: document.getElementById("contactForm"),
+    contactNotice: document.getElementById("contactNotice"),
+    contactSubmit: document.getElementById("contactSubmit"),
 };
 
 async function hydrateNews() {
@@ -219,6 +224,89 @@ function wireInteractions() {
             alert("Thanks! We'll keep you posted.");
         }
     });
+
+    document.querySelectorAll('[data-action="contact"]').forEach(link => {
+        link.addEventListener("click", openContactDialog);
+    });
+
+    document.querySelectorAll('[data-close="contact"]').forEach(btn => {
+        btn.addEventListener("click", () => closeContactDialog());
+    });
+
+    dom.contactForm?.addEventListener("submit", submitContactForm);
+    dom.contactDialog?.addEventListener("close", () => {
+        clearContactNotice();
+        dom.contactForm?.reset();
+    });
+}
+
+function openContactDialog(event) {
+    if (event) event.preventDefault();
+    if (typeof dom.contactDialog?.showModal === "function") {
+        dom.contactDialog.showModal();
+    } else {
+        window.location.href = "mailto:satyapriyaarya@gmail.com";
+    }
+}
+
+function closeContactDialog() {
+    if (dom.contactDialog?.open) {
+        dom.contactDialog.close();
+    }
+    clearContactNotice();
+}
+
+function clearContactNotice() {
+    if (!dom.contactNotice) return;
+    dom.contactNotice.hidden = true;
+    dom.contactNotice.textContent = "";
+    dom.contactNotice.removeAttribute("data-variant");
+}
+
+function setContactNotice(message, variant = "success") {
+    if (!dom.contactNotice) return;
+    dom.contactNotice.textContent = message;
+    dom.contactNotice.dataset.variant = variant;
+    dom.contactNotice.hidden = false;
+}
+
+function toggleContactLoading(isLoading) {
+    if (!dom.contactSubmit) return;
+    dom.contactSubmit.disabled = isLoading;
+    dom.contactSubmit.textContent = isLoading ? "Sending…" : "Send message";
+}
+
+async function submitContactForm(event) {
+    event.preventDefault();
+    if (!dom.contactForm) return;
+
+    const formData = new FormData(dom.contactForm);
+    const payload = Object.fromEntries(formData.entries());
+    toggleContactLoading(true);
+    clearContactNotice();
+
+    try {
+        const response = await fetch(contactEndpoint, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+            body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+            throw new Error("Contact submission failed");
+        }
+
+        setContactNotice("Thanks! We'll reply from satyapriyaarya@gmail.com soon.", "success");
+        dom.contactForm.reset();
+    } catch (error) {
+        console.error(error);
+        setContactNotice("Could not send just now. Email satyapriyaarya@gmail.com directly.", "error");
+    } finally {
+        toggleContactLoading(false);
+    }
 }
 
 window.addEventListener("DOMContentLoaded", () => {
