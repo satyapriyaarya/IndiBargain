@@ -1,6 +1,7 @@
 const newsEndpoint = "https://hn.algolia.com/api/v1/search_by_date?query=artificial%20intelligence&tags=story&hitsPerPage=6";
 const factEndpoint = "https://uselessfacts.jsph.pl/random.json?language=en";
-const contactEndpoint = "https://formsubmit.co/ajax/satyapriyaarya@gmail.com";
+const contactRecipient = "c2F0eWFwcml5YWFyeWFAZ21haWwuY29t"; // base64 so it isn't visible in markup
+const contactEndpoint = `https://formsubmit.co/ajax/${atob(contactRecipient)}`;
 const fallbackNews = [
     {
         title: "Open-source copilots hit production",
@@ -214,7 +215,7 @@ function wireInteractions() {
             if (typeof dom.notifyDialog.showModal === "function") {
                 dom.notifyDialog.showModal();
             } else {
-                alert("Email hello@indibargain.com and we will add you manually.");
+                alert("Shoot us a DM on GitHub (@satyapriyaarya) and we'll add you manually.");
             }
         });
     });
@@ -245,7 +246,7 @@ function openContactDialog(event) {
     if (typeof dom.contactDialog?.showModal === "function") {
         dom.contactDialog.showModal();
     } else {
-        window.location.href = "mailto:satyapriyaarya@gmail.com";
+        alert("Your browser blocks the contact dialog. Please DM @satyapriyaarya on GitHub instead.");
     }
 }
 
@@ -282,6 +283,18 @@ async function submitContactForm(event) {
 
     const formData = new FormData(dom.contactForm);
     const payload = Object.fromEntries(formData.entries());
+    const validationMessage = validateContactPayload(payload);
+    if (validationMessage) {
+        setContactNotice(validationMessage, "error");
+        return;
+    }
+    const sanitized = {
+        name: payload.name.trim(),
+        email: payload.email.trim(),
+        message: payload.message.trim(),
+        subscribe: payload.subscribe ? "Yes" : "No",
+        origin: window.location.href,
+    };
     toggleContactLoading(true);
     clearContactNotice();
 
@@ -292,21 +305,45 @@ async function submitContactForm(event) {
                 "Content-Type": "application/json",
                 Accept: "application/json",
             },
-            body: JSON.stringify(payload),
+            body: JSON.stringify(sanitized),
         });
 
         if (!response.ok) {
             throw new Error("Contact submission failed");
         }
 
-        setContactNotice("Thanks! We'll reply from satyapriyaarya@gmail.com soon.", "success");
+        setContactNotice("Thanks! We received your note and will reply soon.", "success");
         dom.contactForm.reset();
     } catch (error) {
         console.error(error);
-        setContactNotice("Could not send just now. Email satyapriyaarya@gmail.com directly.", "error");
+        setContactNotice("Couldn't send right now. Please retry in a minute.", "error");
     } finally {
         toggleContactLoading(false);
     }
+}
+
+function validateContactPayload(payload) {
+    const name = payload.name?.trim();
+    const email = payload.email?.trim();
+    const message = payload.message?.trim();
+
+    if (!name || name.length < 2) {
+        return "Add your name so we know who is writing.";
+    }
+
+    if (!isValidEmail(email)) {
+        return "Drop a valid email so we can reply.";
+    }
+
+    if (!message || message.length < 20) {
+        return "Share a bit more detail (20+ characters).";
+    }
+
+    return "";
+}
+
+function isValidEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value || "");
 }
 
 window.addEventListener("DOMContentLoaded", () => {
