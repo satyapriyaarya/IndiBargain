@@ -3,26 +3,117 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Indi Bargain</title>
-    <style>
-        body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: "Segoe UI", Arial, sans-serif;
-            background: #f7f7f7;
-            color: #111;
-        }
-        h1 {
-            font-size: 2.5rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-        }
-    </style>
+    <title>IndiBargain · AI Pulse</title>
+    <meta name="description" content="Daily AI intel: curated articles, fresh headlines, and fun facts powered by open data.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
-    <h1>Coming soon...</h1>
+    <div class="orb orb-one" aria-hidden="true"></div>
+    <div class="orb orb-two" aria-hidden="true"></div>
+    <header class="site-header">
+        <div class="logo">IndiBargain<span>AI</span></div>
+        <nav class="site-nav" aria-label="Primary">
+            <a href="#pulse">Pulse</a>
+            <a href="#articles">Deep Dives</a>
+            <a href="#fun">Fun Facts</a>
+            <a href="#gallery">Visuals</a>
+        </nav>
+        <a class="cta ghost" href="https://github.com/satyapriyaarya/IndiBargain" target="_blank" rel="noopener">GitHub</a>
+    </header>
+
+    <main>
+        <section class="hero" id="top">
+            <p class="eyebrow">Your daily AI drip</p>
+            <h1>Signal over noise for curious humans</h1>
+            <p class="lede">We surface brisk AI headlines, snackable explainers, and playful facts so you can stay sharp without doom-scrolling.</p>
+            <div class="hero-cta">
+                <button class="cta" type="button" data-action="notify">Notify me</button>
+                <button class="cta secondary" type="button" data-action="surprise">Random fact</button>
+            </div>
+            <ul class="hero-metrics">
+                <li><span id="metric-headlines">0</span><small>headlines filtered today</small></li>
+                <li><span id="metric-articles">0</span><small>human-curated reads</small></li>
+                <li><span id="metric-facts">0</span><small>fun facts queued</small></li>
+            </ul>
+        </section>
+
+        <section class="panel" id="pulse">
+            <div class="panel-head">
+                <div>
+                    <p class="eyebrow">AI pulse</p>
+                    <h2>Latest drops from the open web</h2>
+                </div>
+                <span class="timestamp" id="newsTimestamp">Syncing…</span>
+            </div>
+            <div class="panel-grid" id="newsGrid" aria-live="polite">
+                <article class="card skeleton"></article>
+                <article class="card skeleton"></article>
+                <article class="card skeleton"></article>
+                <article class="card skeleton"></article>
+            </div>
+        </section>
+
+        <section class="panel" id="articles">
+            <div class="panel-head">
+                <div>
+                    <p class="eyebrow">Deep dives</p>
+                    <h2>Original explainers, under 3 minutes</h2>
+                </div>
+            </div>
+            <div class="panel-grid" id="articleGrid">
+                <!-- populated by app.js -->
+            </div>
+        </section>
+
+        <section class="panel" id="fun">
+            <div class="panel-head">
+                <div>
+                    <p class="eyebrow">Fun facts</p>
+                    <h2>Shareable AI tidbits</h2>
+                </div>
+                <button class="cta secondary" type="button" data-action="refresh-facts">Refresh</button>
+            </div>
+            <div class="fact-grid" id="factGrid">
+                <article class="fact skeleton"></article>
+                <article class="fact skeleton"></article>
+                <article class="fact skeleton"></article>
+            </div>
+        </section>
+
+        <section class="panel" id="gallery">
+            <div class="panel-head">
+                <div>
+                    <p class="eyebrow">Visual inspo</p>
+                    <h2>Generative moods worth bookmarking</h2>
+                </div>
+                <span class="timestamp">Auto-updated hourly</span>
+            </div>
+            <div class="gallery" id="galleryGrid"></div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>Crafted in India · Powered by open APIs · <a href="mailto:hello@indibargain.com">Reach out</a></p>
+    </footer>
+
+    <dialog id="notifyDialog">
+        <form method="dialog">
+            <h3>Stay in the loop</h3>
+            <p>Drop your email and we will ping you when the daily AI digest expands.</p>
+            <label>
+                <span>Email</span>
+                <input type="email" name="email" required placeholder="you@example.com">
+            </label>
+            <menu>
+                <button value="cancel">Close</button>
+                <button value="submit" class="cta">Send</button>
+            </menu>
+        </form>
+    </dialog>
+
+    <script src="assets/js/app.js" defer></script>
 </body>
 </html>

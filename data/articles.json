@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Why India needs open AI observatories",
+    "minutes": 3,
+    "summary": "Grassroots labs can benchmark foundation models on Indic languages without waiting for global vendors.",
+    "link": "https://ai.gov.in/"
+  },
+  {
+    "title": "A founder's guide to GPU thrift",
+    "minutes": 2,
+    "summary": "Mix spot instances, quantization, and distillation to stretch every rupee of inference budget.",
+    "link": "https://www.latent.space/p/gpu-economics"
+  },
+  {
+    "title": "Prompt patterns for regulated teams",
+    "minutes": 2,
+    "summary": "Control hallucinations and log provenance with contrastive prompting plus lightweight guardrails.",
+    "link": "https://promptingguide.ai/"
+  }
+]
