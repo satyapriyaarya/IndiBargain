@@ -1,7 +1,29 @@
 const newsEndpoint = "https://hn.algolia.com/api/v1/search_by_date?query=artificial%20intelligence&tags=story&hitsPerPage=6";
+const articleEndpoint = "https://dev.to/api/articles?tag=ai&per_page=6";
+const galleryEndpoint = "https://lexica.art/api/v1/search?q=futuristic%20ai%20city";
 const factEndpoint = "https://uselessfacts.jsph.pl/random.json?language=en";
 const contactRecipient = "c2F0eWFwcml5YWFyeWFAZ21haWwuY29t"; // base64 so it isn't visible in markup
 const contactEndpoint = `https://formsubmit.co/ajax/${atob(contactRecipient)}`;
+const cacheTtlMs = 24 * 60 * 60 * 1000; // one day fallback window
+const cacheKeys = {
+    news: "ib_news_feed",
+    articles: "ib_articles",
+    facts: "ib_fun_facts",
+    gallery: "ib_gallery",
+};
+const storageAvailable = (() => {
+    if (typeof window === "undefined" || typeof window.localStorage === "undefined") {
+        return false;
+    }
+    try {
+        const probe = "__ib_cache_probe__";
+        window.localStorage.setItem(probe, "1");
+        window.localStorage.removeItem(probe);
+        return true;
+    } catch (error) {
+        return false;
+    }
+})();
 const fallbackNews = [
     {
         title: "Open-source copilots hit production",
@@ -90,17 +112,26 @@ async function hydrateNews() {
                 title: item.title,
                 source: item.author || "Hacker News",
                 url: item.url,
-                summary: item.story_text?.slice(0, 120) || item._highlightResult?.story_text?.value || "Tap for details",
+                summary: item.story_text?.slice(0, 140) || item._highlightResult?.story_text?.value || "Tap for details",
                 time: new Date(item.created_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
             }));
-        renderNews(stories.length ? stories : fallbackNews);
+
+        if (!stories.length) throw new Error("No stories returned");
+
+        renderNews(stories);
+        saveCache(cacheKeys.news, stories);
     } catch (error) {
-        console.warn("Falling back to static news", error);
-        renderNews(fallbackNews);
+        console.warn("Falling back to cached/static news", error);
+        const cached = loadCache(cacheKeys.news);
+        if (cached?.length) {
+            renderNews(cached, "Showing cached pulse (under 24h)");
+            return;
+        }
+        renderNews(fallbackNews, "Using curated backups");
     }
 }
 
-function renderNews(items) {
+function renderNews(items, label) {
     dom.newsGrid.innerHTML = items.map(item => `
         <article class="card">
             <p class="eyebrow">${item.source}</p>
@@ -110,19 +141,48 @@ function renderNews(items) {
             <small class="timestamp">${item.time}</small>
         </article>
     `).join("");
-    dom.newsTimestamp.textContent = `Updated ${new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
+    dom.newsTimestamp.textContent = label || `Updated ${new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
     updateMetric(dom.metricHeadlines, items.length);
 }
 
 async function hydrateArticles() {
     try {
-        const response = await fetch("data/articles.json");
-        if (!response.ok) throw new Error("Missing articles");
-        const articles = await response.json();
+        const response = await fetch(articleEndpoint, { cache: "no-store" });
+        if (!response.ok) throw new Error("Articles API failed");
+        const payload = await response.json();
+        const articles = (payload || [])
+            .slice(0, 6)
+            .map(item => ({
+                title: item.title?.trim() || "AI insight",
+                minutes: item.reading_time_minutes || 3,
+                summary: item.description?.slice(0, 180) || "Tap through for the full analysis on dev.to.",
+                link: item.url || item.canonical_url || "https://dev.to/tag/ai"
+            }));
+
+        if (!articles.length) throw new Error("No articles mapped");
+
         renderArticles(articles);
+        saveCache(cacheKeys.articles, articles);
     } catch (error) {
-        console.warn("Loading embedded articles", error);
-        renderArticles([
+        console.warn("Falling back to cached/backup articles", error);
+        const cached = loadCache(cacheKeys.articles);
+        if (cached?.length) {
+            renderArticles(cached);
+            return;
+        }
+        const backup = await loadArticlesFromFile();
+        renderArticles(backup);
+    }
+}
+
+async function loadArticlesFromFile() {
+    try {
+        const response = await fetch("data/articles.json", { cache: "reload" });
+        if (!response.ok) throw new Error("Missing local article file");
+        return await response.json();
+    } catch (error) {
+        console.warn("Embedded articles missing", error);
+        return [
             {
                 title: "How small language models win",
                 minutes: 3,
@@ -141,7 +201,7 @@ async function hydrateArticles() {
                 summary: "Chain-of-density, contrastive prompts, and rubber-duck debugging keep models grounded.",
                 link: "https://www.promptingguide.ai/"
             }
-        ]);
+        ];
     }
 }
 
@@ -172,8 +232,24 @@ async function hydrateFacts(count = 3) {
             break;
         }
     }
-    const source = facts.length ? facts : fallbackFacts;
-    renderFacts(source.slice(0, count));
+    const cachedFacts = loadCache(cacheKeys.facts);
+    let pool = [...facts];
+
+    if (facts.length) {
+        saveCache(cacheKeys.facts, facts);
+    } else if (cachedFacts?.length) {
+        pool = [...cachedFacts];
+    }
+
+    if (pool.length < count && cachedFacts?.length) {
+        pool = pool.concat(cachedFacts);
+    }
+
+    if (pool.length < count) {
+        pool = pool.concat(fallbackFacts);
+    }
+
+    renderFacts(pool.slice(0, count));
 }
 
 function renderFacts(facts) {
@@ -185,13 +261,42 @@ function renderFacts(facts) {
     updateMetric(dom.metricFacts, facts.length);
 }
 
-function hydrateGallery() {
-    dom.galleryGrid.innerHTML = galleryShots.map(shot => `
+function renderGallery(shots) {
+    dom.galleryGrid.innerHTML = shots.map(shot => `
         <figure>
             <img src="${shot.url}" alt="${shot.title}">
             <figcaption>${shot.title} · ${shot.credit}</figcaption>
         </figure>
     `).join("");
+}
+
+async function hydrateGallery() {
+    try {
+        const response = await fetch(galleryEndpoint, { cache: "no-store" });
+        if (!response.ok) throw new Error("Gallery API failed");
+        const payload = await response.json();
+        const shots = (payload.images || [])
+            .slice(0, 6)
+            .map(image => ({
+                title: image.prompt?.split(".")[0]?.slice(0, 40) || "AI concept",
+                url: image.src || image.srcSmall || image.srcSmallSquare,
+                credit: "Lexica"
+            }))
+            .filter(item => Boolean(item.url));
+
+        if (!shots.length) throw new Error("No gallery shots mapped");
+
+        renderGallery(shots);
+        saveCache(cacheKeys.gallery, shots);
+    } catch (error) {
+        console.warn("Falling back to cached/static gallery", error);
+        const cached = loadCache(cacheKeys.gallery);
+        if (cached?.length) {
+            renderGallery(cached);
+            return;
+        }
+        renderGallery(galleryShots);
+    }
 }
 
 function updateMetric(node, value) {
@@ -344,6 +449,31 @@ function validateContactPayload(payload) {
 
 function isValidEmail(value) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value || "");
+}
+
+function saveCache(key, data) {
+    if (!storageAvailable) return;
+    try {
+        const payload = { timestamp: Date.now(), data };
+        window.localStorage.setItem(key, JSON.stringify(payload));
+    } catch (error) {
+        console.warn("Unable to save cache", error);
+    }
+}
+
+function loadCache(key) {
+    if (!storageAvailable) return null;
+    try {
+        const raw = window.localStorage.getItem(key);
+        if (!raw) return null;
+        const payload = JSON.parse(raw);
+        if (!payload?.data || !payload.timestamp) return null;
+        if (Date.now() - payload.timestamp > cacheTtlMs) return null;
+        return payload.data;
+    } catch (error) {
+        console.warn("Unable to read cache", error);
+        return null;
+    }
 }
 
 window.addEventListener("DOMContentLoaded", () => {
