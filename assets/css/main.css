@@ -310,6 +310,20 @@ main {
     color: var(--accent);
 }
 
+.footer-actions {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    color: var(--muted);
+}
+
+.footer-actions .cta {
+    min-width: 140px;
+}
+
 .muted-text {
     color: var(--muted);
 }

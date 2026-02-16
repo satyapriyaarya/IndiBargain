@@ -5,6 +5,7 @@ const factEndpoint = "https://uselessfacts.jsph.pl/random.json?language=en";
 const contactRecipient = "c2F0eWFwcml5YWFyeWFAZ21haWwuY29t"; // base64 so it isn't visible in markup
 const contactEndpoint = `https://formsubmit.co/ajax/${atob(contactRecipient)}`;
 const cacheTtlMs = 24 * 60 * 60 * 1000; // one day fallback window
+const galleryRefreshMs = 60 * 60 * 1000; // hourly refresh
 const cacheKeys = {
     news: "ib_news_feed",
     articles: "ib_articles",
@@ -90,6 +91,7 @@ const dom = {
     articleGrid: document.getElementById("articleGrid"),
     factGrid: document.getElementById("factGrid"),
     galleryGrid: document.getElementById("galleryGrid"),
+    galleryTimestamp: document.getElementById("galleryTimestamp"),
     metricHeadlines: document.getElementById("metric-headlines"),
     metricArticles: document.getElementById("metric-articles"),
     metricFacts: document.getElementById("metric-facts"),
@@ -270,6 +272,11 @@ function renderGallery(shots) {
     `).join("");
 }
 
+function setGalleryTimestamp(label) {
+    if (!dom.galleryTimestamp) return;
+    dom.galleryTimestamp.textContent = label;
+}
+
 async function hydrateGallery() {
     try {
         const response = await fetch(galleryEndpoint, { cache: "no-store" });
@@ -288,14 +295,17 @@ async function hydrateGallery() {
 
         renderGallery(shots);
         saveCache(cacheKeys.gallery, shots);
+        setGalleryTimestamp(`Updated ${new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`);
     } catch (error) {
         console.warn("Falling back to cached/static gallery", error);
         const cached = loadCache(cacheKeys.gallery);
         if (cached?.length) {
             renderGallery(cached);
+            setGalleryTimestamp("Showing cached gallery (< 24h)");
             return;
         }
         renderGallery(galleryShots);
+        setGalleryTimestamp("Using curated gallery set");
     }
 }
 
@@ -481,5 +491,6 @@ window.addEventListener("DOMContentLoaded", () => {
     hydrateArticles();
     hydrateFacts();
     hydrateGallery();
+    setInterval(() => hydrateGallery(), galleryRefreshMs);
     wireInteractions();
 });
