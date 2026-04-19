@@ -74,6 +74,16 @@ body {
     margin: 10px 0;
 }
 
+.hero-link {
+    margin-top: 10px;
+}
+
+.hero-link a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+}
+
 .eyebrow {
     letter-spacing: 0.2em;
     text-transform: uppercase;
@@ -127,6 +137,28 @@ body {
     margin-top: 18px;
     line-height: 1.75;
     color: var(--text);
+}
+
+.post-source {
+    margin-top: 18px;
+}
+
+.journey-nav {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 12px;
+    align-items: center;
+}
+
+.journey-nav a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.journey-nav a:last-child {
+    text-align: right;
 }
 
 .skeleton {

@@ -30,6 +30,9 @@ async function loadPost() {
 
 function renderPost(post) {
     document.title = `${post.title} · IndiBargain Blog`;
+    const linkedContent = (post.content || "")
+        .replace(/journey\/index\.html/g, '<a href="journey/index.html">journey/index.html</a>')
+        .replace(/\n/g, "<br><br>");
 
     postShell.innerHTML = `
         <p class="eyebrow">${post.category || "General"}</p>
@@ -39,7 +42,7 @@ function renderPost(post) {
             <span>${post.readTime || "3 min read"}</span>
             <span>By ${post.author || "IndiBargain"}</span>
         </p>
-        <div class="post-content">${post.content.replace(/\n/g, "<br><br>")}</div>
+        <div class="post-content">${linkedContent}</div>
         <p><a href="index.html">← Back to all articles</a></p>
     `;
 }
