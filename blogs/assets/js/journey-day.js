@@ -34,6 +34,9 @@ function renderEntry(entry, index, total, items) {
 
     const prev = index > 0 ? items[index - 1] : null;
     const next = index < total - 1 ? items[index + 1] : null;
+    const gallery = Array.isArray(entry.images) && entry.images.length
+        ? `<div class="journey-gallery">${entry.images.map((src, i) => `<img src="${src}" alt="${entry.title || entry.day} photo ${i + 1}" loading="lazy">`).join("")}</div>`
+        : "";
 
     journeyPost.innerHTML = `
         <p class="eyebrow">${entry.day}</p>
@@ -42,6 +45,7 @@ function renderEntry(entry, index, total, items) {
             <span>${new Date(entry.date).toLocaleDateString()}</span>
             <span>Part ${index + 1} / ${total}</span>
         </p>
+        ${gallery}
         <div class="post-content">${toHtml(entry.content)}</div>
         <p class="post-source"><a href="${entry.sourceUrl}" target="_blank" rel="noopener">View original source ↗</a></p>
         <div class="journey-nav">

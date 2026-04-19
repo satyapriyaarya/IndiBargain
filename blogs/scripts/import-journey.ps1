@@ -33,6 +33,17 @@ foreach ($item in $items) {
         $plain = if ($null -ne $postNode) { [System.Net.WebUtility]::HtmlDecode($postNode.innerText) } else { '' }
         $plain = [regex]::Replace($plain, '\\s+', ' ').Trim()
 
+        $images = @()
+        if ($null -ne $postNode) {
+            $imgNodes = $postNode.getElementsByTagName('img')
+            foreach ($img in $imgNodes) {
+                if ($null -ne $img -and $img.src -and $img.src -like 'http*') {
+                    $images += $img.src
+                }
+            }
+            $images = $images | Select-Object -Unique
+        }
+
         if ($plain.Length -gt 12000) {
             $plain = $plain.Substring(0, 12000) + ' ...'
         }
@@ -47,6 +58,8 @@ foreach ($item in $items) {
             excerpt = $excerpt
             sourceUrl = $item.url
             content = $plain
+            coverImage = if ($images.Count -gt 0) { $images[0] } else { $null }
+            images = $images
         }
     }
     catch {

@@ -105,6 +105,15 @@ body {
     padding: 18px;
 }
 
+.journey-cover {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    border: 1px solid var(--panel-border);
+}
+
 .post-card h2 {
     font-size: 1.1rem;
     margin: 10px 0;
@@ -141,6 +150,21 @@ body {
 
 .post-source {
     margin-top: 18px;
+}
+
+.journey-gallery {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+}
+
+.journey-gallery img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid var(--panel-border);
 }
 
 .journey-nav {

@@ -22,6 +22,7 @@ function renderJourney(items) {
     journeyGrid.innerHTML = items
         .map((entry, index) => `
             <article class="post-card">
+                ${entry.coverImage ? `<img class="journey-cover" src="${entry.coverImage}" alt="${entry.title || entry.day}">` : ""}
                 <p class="eyebrow">${entry.day}</p>
                 <h2>${entry.title || entry.day}</h2>
                 <p>${entry.excerpt || "Travel entry"}</p>
