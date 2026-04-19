@@ -1,0 +1,39 @@
+const postGrid = document.getElementById("postGrid");
+
+async function loadPosts() {
+    try {
+        const response = await fetch("data/posts.json", { cache: "no-store" });
+        if (!response.ok) {
+            throw new Error("Unable to load posts");
+        }
+        const posts = await response.json();
+        renderPosts(posts);
+    } catch (error) {
+        postGrid.innerHTML = `<article class="post-card"><p>Could not load posts right now.</p></article>`;
+    }
+}
+
+function renderPosts(posts) {
+    if (!Array.isArray(posts) || posts.length === 0) {
+        postGrid.innerHTML = `<article class="post-card"><p>No posts published yet.</p></article>`;
+        return;
+    }
+
+    postGrid.innerHTML = posts
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .map(post => `
+            <article class="post-card">
+                <p class="eyebrow">${post.category || "General"}</p>
+                <h2>${post.title}</h2>
+                <p>${post.excerpt}</p>
+                <p class="post-meta">
+                    <span>${new Date(post.date).toLocaleDateString()}</span>
+                    <span>${post.readTime || "3 min read"}</span>
+                </p>
+                <p><a href="post.html?slug=${encodeURIComponent(post.slug)}">Read article →</a></p>
+            </article>
+        `)
+        .join("");
+}
+
+loadPosts();

@@ -1,0 +1,32 @@
+[
+  {
+    "slug": "why-local-ai-matters-for-india",
+    "title": "Why Local AI Matters for India",
+    "excerpt": "How local language support and regional context can make AI products more useful for daily life.",
+    "content": "India’s AI opportunity is not only about model size—it is about relevance. Products that understand local languages, price sensitivity, and real-world workflows solve bigger problems than generic tools.\n\nStart with one city, one use-case, and one local language. Measure retention, not vanity metrics. Then expand with confidence.",
+    "category": "AI Strategy",
+    "author": "IndiBargain Team",
+    "date": "2026-04-18",
+    "readTime": "4 min read"
+  },
+  {
+    "slug": "3-ways-to-cut-inference-cost",
+    "title": "3 Ways to Cut Inference Cost",
+    "excerpt": "Simple tactics to reduce AI serving cost without reducing response quality.",
+    "content": "Inference bills usually grow faster than expected. Before scaling traffic, lock in basic controls.\n\n1) Use short prompts and strict token limits.\n2) Add response caching for repeated queries.\n3) Route easy tasks to smaller models first.\n\nThese three changes are often enough to reduce spend immediately.",
+    "category": "Engineering",
+    "author": "IndiBargain Team",
+    "date": "2026-04-16",
+    "readTime": "3 min read"
+  },
+  {
+    "slug": "build-better-ai-content-workflow",
+    "title": "Build a Better AI Content Workflow",
+    "excerpt": "A practical publishing flow for drafting, reviewing, and posting articles quickly.",
+    "content": "If your team wants to publish consistently, focus on process over tools.\n\nCreate a weekly topic list, assign owners, draft with AI assistance, and keep a human editor in the loop. Publish with a fixed cadence so readers know when to expect new posts.",
+    "category": "Content",
+    "author": "IndiBargain Team",
+    "date": "2026-04-14",
+    "readTime": "3 min read"
+  }
+]
