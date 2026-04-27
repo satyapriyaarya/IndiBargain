@@ -195,3 +195,28 @@ body {
     margin: 24px auto 0;
     color: var(--muted);
 }
+
+.legacy-content {
+    line-height: 1.8;
+    color: var(--text);
+}
+
+.legacy-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid var(--panel-border);
+}
+
+.legacy-content a {
+    color: var(--accent);
+}
+
+.legacy-content .post-title {
+    margin-top: 0;
+}
+
+.legacy-content .post-header {
+    margin-bottom: 16px;
+    color: var(--muted);
+}

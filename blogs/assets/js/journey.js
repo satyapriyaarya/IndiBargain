@@ -30,7 +30,7 @@ function renderJourney(items) {
                     <span>${new Date(entry.date).toLocaleDateString()}</span>
                     <span>Part ${index + 1} / ${items.length}</span>
                 </p>
-                <p><a href="day.html?slug=${encodeURIComponent(entry.slug)}">Read this part →</a></p>
+                <p><a href="/journey/day#${encodeURIComponent(entry.slug)}">Read this part →</a></p>
             </article>
         `)
         .join("");

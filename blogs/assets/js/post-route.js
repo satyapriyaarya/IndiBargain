@@ -4,7 +4,7 @@ const slug = params.get("slug");
 
 async function loadPost() {
     try {
-        const response = await fetch("data/posts.json", { cache: "no-store" });
+        const response = await fetch("../data/posts.json", { cache: "no-store" });
         if (!response.ok) {
             throw new Error("Unable to load posts");
         }
@@ -32,7 +32,7 @@ async function loadPost() {
 function renderPost(post) {
     document.title = `${post.title} · IndiBargain Blog`;
     const linkedContent = (post.content || "")
-        .replace(/journey\/index\.html/g, '<a href="journey/index.html">journey/index.html</a>')
+        .replace(/journey\/index\.html/g, '<a href="../journey/index.html">journey/index.html</a>')
         .replace(/\n/g, "<br><br>");
 
     postShell.innerHTML = `
@@ -44,7 +44,7 @@ function renderPost(post) {
             <span>By ${post.author || "IndiBargain"}</span>
         </p>
         <div class="post-content">${linkedContent}</div>
-        <p><a href="index.html">← Back to all articles</a></p>
+        <p><a href="../index.html">← Back to all articles</a></p>
     `;
 }
 
@@ -52,7 +52,7 @@ function renderMissing() {
     postShell.innerHTML = `
         <h1>Post not found</h1>
         <p>The article you are looking for is not available.</p>
-        <p><a href="index.html">← Back to all articles</a></p>
+        <p><a href="../index.html">← Back to all articles</a></p>
     `;
 }
 
@@ -60,7 +60,7 @@ function renderError() {
     postShell.innerHTML = `
         <h1>Something went wrong</h1>
         <p>Unable to load this article right now.</p>
-        <p><a href="index.html">← Back to all articles</a></p>
+        <p><a href="../index.html">← Back to all articles</a></p>
     `;
 }
 
