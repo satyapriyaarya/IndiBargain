@@ -21,7 +21,12 @@ function renderPosts(posts) {
 
     postGrid.innerHTML = posts
         .sort((a, b) => new Date(b.date) - new Date(a.date))
-        .map(post => `
+        .map(post => {
+            const postHref = post.slug === "leh-ladakh-15-day-journey"
+                ? "journey/index.html"
+                : `post.html?slug=${encodeURIComponent(post.slug)}`;
+
+            return `
             <article class="post-card">
                 <p class="eyebrow">${post.category || "General"}</p>
                 <h2>${post.title}</h2>
@@ -30,9 +35,10 @@ function renderPosts(posts) {
                     <span>${new Date(post.date).toLocaleDateString()}</span>
                     <span>${post.readTime || "3 min read"}</span>
                 </p>
-                <p><a href="post.html?slug=${encodeURIComponent(post.slug)}">Read article →</a></p>
+                <p><a href="${postHref}">Read article →</a></p>
             </article>
-        `)
+        `;
+        })
         .join("");
 }
 
