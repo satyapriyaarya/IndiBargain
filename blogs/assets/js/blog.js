@@ -11,8 +11,8 @@ const languageMeta = {
         name: "English",
         readLabel: "Read article →",
         emptyMessage: "No English posts published yet.",
-        heroHref: "post.html?slug=why-local-ai-matters-for-india",
-        heroText: "Read in English: Why Local AI Matters for India →"
+        heroHref: "journey/index.html",
+        heroText: "Read: Bike Trip To Leh Ladakh (15-part series) →"
     },
     hi: {
         name: "हिंदी",
