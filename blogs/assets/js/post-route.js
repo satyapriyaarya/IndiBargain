@@ -1,6 +1,11 @@
 const postShell = document.getElementById("postShell");
 const params = new URLSearchParams(window.location.search);
 const slug = params.get("slug");
+const JOURNEY_SERIES_SLUG = "leh-ladakh-15-day-journey";
+
+if (slug === JOURNEY_SERIES_SLUG) {
+    window.location.replace("/blogs/journey/index.html");
+}
 
 async function loadPost() {
     try {
@@ -32,7 +37,7 @@ async function loadPost() {
 function renderPost(post) {
     document.title = `${post.title} · IndiBargain Blog`;
     const linkedContent = (post.content || "")
-        .replace(/journey\/index\.html/g, '<a href="../journey/index.html">journey/index.html</a>')
+        .replace(/journey\/index\.html/g, '<a href="/blogs/journey/index.html">journey/index.html</a>')
         .replace(/\n/g, "<br><br>");
 
     postShell.innerHTML = `
@@ -64,4 +69,6 @@ function renderError() {
     `;
 }
 
-loadPost();
+if (slug !== JOURNEY_SERIES_SLUG) {
+    loadPost();
+}

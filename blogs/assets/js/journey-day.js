@@ -34,9 +34,21 @@ function normalizeSlug(value) {
 }
 
 function getRequestedSlug() {
-    const hash = (window.location.hash || "").replace(/^#/, "").trim();
-    if (hash) {
-        return hash;
+    const rawHash = (window.location.hash || "").replace(/^#/, "").trim();
+    if (rawHash) {
+        const hashValue = decodeURIComponent(rawHash);
+
+        const hashParams = new URLSearchParams(hashValue.replace(/^\?/, ""));
+        const hashSlug = hashParams.get("slug");
+        if (hashSlug) {
+            return hashSlug;
+        }
+
+        return hashValue
+            .replace(/^\/+/, "")
+            .replace(/^journey\/day\//i, "")
+            .replace(/^day\//i, "")
+            .trim();
     }
 
     const params = new URLSearchParams(window.location.search);
@@ -161,7 +173,7 @@ function toLocalJourneyLinks(html, items) {
             const mappedSlug = slugByPath.get(pathKey);
 
             if (mappedSlug) {
-                anchor.setAttribute("href", `/journey/day#${encodeURIComponent(mappedSlug)}`);
+                anchor.setAttribute("href", `/journey/day/#${encodeURIComponent(mappedSlug)}`);
             }
         } catch (error) {
         }
@@ -183,9 +195,9 @@ function renderEntry(entry, index, total, items) {
             <div class="legacy-content">${legacyHtml}</div>
             <p class="post-source"><a href="${entry.sourceUrl}" target="_blank" rel="noopener">View original source ↗</a></p>
             <div class="journey-nav">
-                ${prev ? `<a href="/journey/day#${encodeURIComponent(prev.slug)}">← ${prev.day}</a>` : "<span></span>"}
+                ${prev ? `<a href="/journey/day/#${encodeURIComponent(prev.slug)}">← ${prev.day}</a>` : "<span></span>"}
                 <a href="/journey/index.html">All parts</a>
-                ${next ? `<a href="/journey/day#${encodeURIComponent(next.slug)}">${next.day} →</a>` : "<span></span>"}
+                ${next ? `<a href="/journey/day/#${encodeURIComponent(next.slug)}">${next.day} →</a>` : "<span></span>"}
             </div>
         `;
 
@@ -207,9 +219,9 @@ function renderEntry(entry, index, total, items) {
         <div class="post-content">${toHtml(entry.content)}</div>
         <p class="post-source"><a href="${entry.sourceUrl}" target="_blank" rel="noopener">View original source ↗</a></p>
         <div class="journey-nav">
-            ${prev ? `<a href="/journey/day#${encodeURIComponent(prev.slug)}">← ${prev.day}</a>` : "<span></span>"}
+            ${prev ? `<a href="/journey/day/#${encodeURIComponent(prev.slug)}">← ${prev.day}</a>` : "<span></span>"}
             <a href="/journey/index.html">All parts</a>
-            ${next ? `<a href="/journey/day#${encodeURIComponent(next.slug)}">${next.day} →</a>` : "<span></span>"}
+            ${next ? `<a href="/journey/day/#${encodeURIComponent(next.slug)}">${next.day} →</a>` : "<span></span>"}
         </div>
     `;
 }
