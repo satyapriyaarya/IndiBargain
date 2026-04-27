@@ -1,12 +1,28 @@
 const journeyGrid = document.getElementById("journeyGrid");
 
+async function fetchJourneyData() {
+    const candidates = [
+        "../data/leh-ladakh-journey.json",
+        "/blogs/data/leh-ladakh-journey.json",
+        "/data/leh-ladakh-journey.json"
+    ];
+
+    for (const path of candidates) {
+        try {
+            const response = await fetch(path, { cache: "no-store" });
+            if (response.ok) {
+                return await response.json();
+            }
+        } catch (error) {
+        }
+    }
+
+    throw new Error("Unable to load journey data");
+}
+
 async function loadJourney() {
     try {
-        const response = await fetch("../data/leh-ladakh-journey.json", { cache: "no-store" });
-        if (!response.ok) {
-            throw new Error("Unable to load journey data");
-        }
-        const items = await response.json();
+        const items = await fetchJourneyData();
         renderJourney(items);
     } catch (error) {
         journeyGrid.innerHTML = `<article class="post-card"><p>Could not load journey right now.</p></article>`;

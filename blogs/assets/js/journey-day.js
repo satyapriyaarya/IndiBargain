@@ -2,6 +2,26 @@ const journeyPost = document.getElementById("journeyPost");
 
 let journeyItemsCache = null;
 
+async function fetchJourneyData() {
+    const candidates = [
+        "../data/leh-ladakh-journey.json",
+        "/blogs/data/leh-ladakh-journey.json",
+        "/data/leh-ladakh-journey.json"
+    ];
+
+    for (const path of candidates) {
+        try {
+            const response = await fetch(path, { cache: "no-store" });
+            if (response.ok) {
+                return await response.json();
+            }
+        } catch (error) {
+        }
+    }
+
+    throw new Error("Unable to load journey data");
+}
+
 function normalizeSlug(value) {
     return String(value || "")
         .trim()
@@ -81,11 +101,7 @@ function renderCurrentSelection() {
 
 async function loadEntry() {
     try {
-        const response = await fetch("../data/leh-ladakh-journey.json", { cache: "no-store" });
-        if (!response.ok) {
-            throw new Error("Unable to load journey data");
-        }
-        const items = await response.json();
+        const items = await fetchJourneyData();
         if (!Array.isArray(items) || items.length === 0) {
             renderMissing();
             return;
