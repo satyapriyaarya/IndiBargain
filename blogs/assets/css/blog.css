@@ -206,6 +206,32 @@ body {
     height: auto;
     border-radius: 10px;
     border: 1px solid var(--panel-border);
+    display: block;
+    margin: 14px auto;
+    float: none !important;
+    clear: both;
+}
+
+.legacy-content a[style*="float" i],
+.legacy-content div[style*="float" i],
+.legacy-content span[style*="float" i],
+.legacy-content table[style*="float" i],
+.legacy-content img[style*="float" i] {
+    float: none !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+
+.legacy-content .separator,
+.legacy-content .MsoNormal,
+.legacy-content .tr-caption-container,
+.legacy-content table {
+    clear: both;
+}
+
+.legacy-content .tr-caption-container {
+    margin-left: auto !important;
+    margin-right: auto !important;
 }
 
 .legacy-content a {
