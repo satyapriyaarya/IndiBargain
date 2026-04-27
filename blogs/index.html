@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/blog.css">
+    <link rel="stylesheet" href="assets/css/blog.css?v=20260427lang1">
 </head>
 <body>
     <header class="blog-header">
@@ -31,7 +31,15 @@
             <p class="eyebrow">IndiBargain Blog</p>
             <h1>Latest Articles</h1>
             <p>Publish and manage your posts here without changing your homepage theme.</p>
-            <p class="hero-link"><a href="journey/index.html">Read: Bike Trip To Leh Ladakh (15-part series) →</a></p>
+            <div class="language-panel" aria-label="Language selection">
+                <p class="language-title">Choose your reading language</p>
+                <div id="languageSelector" class="lang-selector" role="group" aria-label="Blog language">
+                    <button type="button" class="lang-btn" data-lang="en">English</button>
+                    <button type="button" class="lang-btn" data-lang="hi">हिंदी</button>
+                </div>
+                <p id="currentLanguageLabel" class="language-current" aria-live="polite"></p>
+            </div>
+            <p class="hero-link" id="heroLinkWrap"><a id="heroPrimaryLink" href="journey/index.html">Read: Bike Trip To Leh Ladakh (15-part series) →</a></p>
         </section>
 
         <section aria-live="polite">
@@ -47,6 +55,6 @@
         <p>© IndiBargain</p>
     </footer>
 
-    <script src="assets/js/blog.js?v=20260427a" defer></script>
+    <script src="assets/js/blog.js?v=20260427lang1" defer></script>
 </body>
 </html>

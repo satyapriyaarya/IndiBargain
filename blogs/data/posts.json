@@ -7,7 +7,8 @@
     "category": "Travel",
     "author": "IndiBargain Team",
     "date": "2026-04-19",
-    "readTime": "15 parts"
+    "readTime": "15 parts",
+    "language": "hi"
   },
   {
     "slug": "why-local-ai-matters-for-india",
@@ -17,7 +18,8 @@
     "category": "AI Strategy",
     "author": "IndiBargain Team",
     "date": "2026-04-18",
-    "readTime": "4 min read"
+    "readTime": "4 min read",
+    "language": "en"
   },
   {
     "slug": "3-ways-to-cut-inference-cost",
@@ -27,7 +29,8 @@
     "category": "Engineering",
     "author": "IndiBargain Team",
     "date": "2026-04-16",
-    "readTime": "3 min read"
+    "readTime": "3 min read",
+    "language": "en"
   },
   {
     "slug": "build-better-ai-content-workflow",
@@ -37,6 +40,7 @@
     "category": "Content",
     "author": "IndiBargain Team",
     "date": "2026-04-14",
-    "readTime": "3 min read"
+    "readTime": "3 min read",
+    "language": "en"
   }
 ]

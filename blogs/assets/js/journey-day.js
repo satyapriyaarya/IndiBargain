@@ -1,6 +1,18 @@
 const journeyPost = document.getElementById("journeyPost");
+const BLOG_LANGUAGE_KEY = "ib_blog_lang";
 
 let journeyItemsCache = null;
+
+function getSelectedLanguage() {
+    const queryLanguage = (new URLSearchParams(window.location.search).get("lang") || "").trim().toLowerCase();
+    if (queryLanguage === "en" || queryLanguage === "hi") {
+        localStorage.setItem(BLOG_LANGUAGE_KEY, queryLanguage);
+        return queryLanguage;
+    }
+
+    const savedLanguage = (localStorage.getItem(BLOG_LANGUAGE_KEY) || "").trim().toLowerCase();
+    return savedLanguage === "hi" ? "hi" : "en";
+}
 
 async function fetchJourneyData() {
     const candidates = [
@@ -112,6 +124,27 @@ function renderCurrentSelection() {
 }
 
 async function loadEntry() {
+    const selectedLanguage = getSelectedLanguage();
+    if (selectedLanguage !== "hi") {
+        journeyPost.innerHTML = `
+            <h1>This journey is currently available in Hindi</h1>
+            <p>Switch your selected language to Hindi to read this series.</p>
+            <p><a href="#" id="switchJourneyToHindi">Switch to Hindi →</a></p>
+            <p><a href="/blogs/index.html">← Back to all articles</a></p>
+        `;
+
+        const switchLink = document.getElementById("switchJourneyToHindi");
+        if (switchLink) {
+            switchLink.addEventListener("click", (event) => {
+                event.preventDefault();
+                localStorage.setItem(BLOG_LANGUAGE_KEY, "hi");
+                window.location.reload();
+            });
+        }
+
+        return;
+    }
+
     try {
         const items = await fetchJourneyData();
         if (!Array.isArray(items) || items.length === 0) {
