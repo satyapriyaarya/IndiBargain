@@ -166,26 +166,17 @@ function getTravelEssentials(entry) {
     const mapQuery = entry && (entry.title || entry.slug) ? `${entry.title || entry.slug}, India` : `${placeName}, India`;
     const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
 
-    const isValley = /valley-of-flowers|hemkund|ghangaria|joshimath|govindghat/.test(haystack);
-
-    if (isValley) {
-        return {
-            howToReach: "The standard route is Haridwar/Rishikesh to Joshimath/Govindghat, then trek segments to Ghangaria and beyond.",
-            whatToEat: "High-energy simple meals: dal-rice, paratha, eggs, dry fruits, and hydration salts.",
-            whereToEat: "Route dhabas on road days and lodge dining points in Ghangaria for trek-day convenience.",
-            whatToBuy: "Poncho, trek pole, rain cover, basic medicine kit, and waterproof pouches before entering higher sections.",
-            interesting: "A second valley visit often improves both flower viewing and photography compared to a single rushed entry.",
-            mapLink,
-            placeName
-        };
-    }
-
     return {
-        howToReach: "Use the nearest major airport or railhead and keep a 3-4 hour local transfer buffer on active sightseeing days.",
-        whatToEat: "Prefer one local signature meal and one simple high-energy meal for better travel pacing.",
-        whereToEat: "Choose highly rated local spots close to your route instead of cross-city detours during peak hours.",
-        whatToBuy: "Focus on one or two authentic regional products from verified shops.",
-        interesting: "Plan one sunrise block and one sunset block for better photography and pacing.",
+        howToReach: "Rishikesh (240 km from Delhi via NH58) or Haridwar are the standard starting points. Rishikesh to Joshimath is 253 km (7-9 hours by road with multiple ghat sections). From Joshimath, go 25 km to Govindghat. Trek starts at Pulna (2 km beyond Govindghat by shared taxi or on foot). Pulna to Ghangaria is 13-14 km (4-6 hours at steady pace).",
+        whatToEat: "High-carb, easy-digest trek meals: dal-rice, rajma-chawal, aloo paratha, and egg preparations at Ghangaria lodges. Carry: roasted makhana, trail mix (almonds + raisins), glucose biscuits, electrolyte sachets, and instant oat packets for pre-dawn starts. Avoid heavy or oily food during active trek days.",
+        whereToEat: "Route dhabas at Devprayag, Rudraprayag, and Pipalkoti for hot meals during road transit. Tea stalls at Pulna before trek start. Ghangaria lodges with attached kitchens for cooked meals — choose busy establishments with fresh turnover. Avoid undercooked food at altitude as digestion is already under stress.",
+        whatToBuy: "Essential gear before entering the trek: waterproof poncho (INR 150-400), trek poles (rentable at Govindghat for INR 50-100/day), quick-dry socks, and blister plasters. Valley of Flowers National Park entry fee: INR 150/day (Indian), INR 600/day (foreign national). Hemkund Sahib entry is free. Carry small denomination cash for dhabas and porters.",
+        interesting: "The Valley of Flowers hosts over 600 species of wild alpine flowers. Flowering peak is mid-July to mid-August. Each week within this window brings a different species to dominance — a second visit one week after the first shows a noticeably different floral landscape, making the double-entry strategy genuinely worthwhile.",
+        gettingAround: "Delhi to Rishikesh: Volvo buses (6-7 hours, INR 400-600) or train to Haridwar then cab. Rishikesh to Govindghat: shared taxis depart at 5 AM for best timing. Pulna to Ghangaria: 13-14 km on foot or mule hire (INR 1,200-2,000 one way). Mules cannot carry people through the steep valley internal sections. No motorized vehicle access beyond Pulna.",
+        photographyTips: "Shoot in cloud-break windows (often 8-10 AM before afternoon cloud build-up) for soft natural light without harsh shadows. Wide-angle lens for valley floor panoramas, 50mm+ macro for individual flower close-ups. Hemkund Lake at noon has the clearest sky reflection when sun is directly overhead. Bring a polarising filter to control glare on snow patches and water surfaces at high altitude.",
+        bestTime: "Mid-July to mid-August: maximum flower variety and bloom density. Second half of August into September: fewer tourists, late-season flowers including Brahmakamal (the state flower of Uttarakhand). Early July: snow still present on upper sections, some flowers just emerging. Trail opens officially June 1 and closes October 15 — plan within this window only.",
+        budgetGuide: "Per-person budget for a 10-day Valley of Flowers circuit: Delhi-Rishikesh transport INR 600-1,200, accommodation (8 nights across route) INR 4,000-8,000, meals INR 3,000-5,000, park entry fees INR 1,200-1,800, porter or mule if needed INR 1,500-3,000. Total: INR 10,300-19,000 per person.",
+        safetyNotes: "Never trek solo beyond Pulna — always maintain buddy-group system. Altitude sickness (AMS) risk increases above Ghangaria at 3,048 m; descend immediately if you develop persistent headache, nausea, or confusion. Do not take Diamox without a prescription. Avoid valley entry after noon to ensure daylight for safe return. Flash floods can occur without warning on the trek route during and after rain.",
         mapLink,
         placeName
     };
@@ -199,10 +190,15 @@ function renderTravelEssentials(entry) {
         <h2>Travel Essentials</h2>
         <p><strong>How to Reach:</strong> ${essentials.howToReach}</p>
         <p><strong>Google Map:</strong> <a href="${essentials.mapLink}" target="_blank" rel="noopener">Open ${essentials.placeName} on Google Maps ↗</a></p>
+        <p><strong>Getting Around:</strong> ${essentials.gettingAround}</p>
         <p><strong>What to Eat:</strong> ${essentials.whatToEat}</p>
         <p><strong>Where to Eat:</strong> ${essentials.whereToEat}</p>
         <p><strong>What to Buy:</strong> ${essentials.whatToBuy}</p>
+        <p><strong>Photography Tips:</strong> ${essentials.photographyTips}</p>
+        <p><strong>Best Time to Visit:</strong> ${essentials.bestTime}</p>
+        <p><strong>Budget Guide:</strong> ${essentials.budgetGuide}</p>
         <p><strong>Interesting Tip:</strong> ${essentials.interesting}</p>
+        <p><strong>Safety Notes:</strong> ${essentials.safetyNotes}</p>
     `;
 }
 

@@ -166,26 +166,17 @@ function getTravelEssentials(entry) {
     const mapQuery = entry && (entry.title || entry.slug) ? `${entry.title || entry.slug}, India` : `${placeName}, India`;
     const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
 
-    const isAssam = /assam|guwahati|kaziranga|majuli|sivasagar/.test(haystack);
-
-    if (isAssam) {
-        return {
-            howToReach: "Guwahati is the primary gateway; for Majuli and upper-Assam segments keep road and ferry timing buffers.",
-            whatToEat: "Assamese thali, tenga fish, smoked local dishes, pitha, and black rice sweets.",
-            whereToEat: "Local Assamese kitchens in Guwahati and homestay/community dining setups in Majuli.",
-            whatToBuy: "Assam tea, handloom textiles, bamboo crafts, and organic local products.",
-            interesting: "A flexible half-day buffer makes Assam itineraries smoother, especially during ferry-dependent legs.",
-            mapLink,
-            placeName
-        };
-    }
-
     return {
-        howToReach: "Use the nearest major airport or railhead and keep a 3-4 hour local transfer buffer on active sightseeing days.",
-        whatToEat: "Prefer one local signature meal and one simple high-energy meal for better travel pacing.",
-        whereToEat: "Choose highly rated local spots close to your route instead of cross-city detours during peak hours.",
-        whatToBuy: "Focus on one or two authentic regional products from verified shops.",
-        interesting: "Plan one sunrise block and one sunset block for better photography and pacing.",
+        howToReach: "Lokpriya Gopinath Bordoloi International Airport (Guwahati) is the main hub with connections to Delhi, Kolkata, Mumbai, and Bangalore. NH27 connects Guwahati to Kaziranga (190 km, 4-5 hours by road). Majuli is accessed via Jorhat and the Neamati Ghat ferry. Sivasagar is 380 km from Guwahati on NH715 — all intercity movement should start early due to single-lane highway stretches.",
+        whatToEat: "Assamese thali: rice, dal, masor tenga (fish in sour tomato or elephant apple gravy), khar (alkaline-cooked vegetables), pitika (mashed preparations with mustard oil), bamboo shoot sabzi, and black sesame chutney. Joha rice (short-grain aromatic variety) is distinctive to Assam. In Majuli: traditional Mising tribe preparations including smoked pork and fermented fish dishes.",
+        whereToEat: "Guwahati: Paradise Restaurant near Fancy Bazaar for classic Assamese fish dishes, local dhabas on AT Road for quick thalis. Kaziranga: resort dining or small roadside restaurants in Kohora for fresh river fish. Majuli: homestay meals cooked fresh are the best food experience in the entire route — request local preparations in advance.",
+        whatToBuy: "Assam CTC and orthodox loose-leaf tea from verified estate outlets (Kaziranga area has several). Handloom products: muga silk (natural golden silk, unique to Assam), gamocha (traditional cotton towel with woven red border), mekhela chador (two-piece traditional women's garment from Sualkuchi weavers). Bamboo and cane crafts from Majuli artisans. Organic rice products from roadside cooperative stalls.",
+        interesting: "The Majuli ferry crossing from Neamati Ghat is itself a cultural experience: the boat simultaneously carries vehicles, cycles, goats, crates of produce, and passengers across the Brahmaputra. Stand on the upper deck for a full view of the river's scale — in certain seasons the water stretches beyond visible horizon in both directions.",
+        gettingAround: "Guwahati: Ola/Uber available and reliable within the city. Kaziranga to Majuli: hire a private car with driver from Kaziranga (5-6 hours total including ferry waiting). Majuli: rent a bicycle (INR 100-150/day) or moped — the island is flat and roads are manageable. Sivasagar: local autos and shared tempos connect major historical sites. Always confirm road and ferry conditions the evening before each transit.",
+        photographyTips: "Kaziranga morning safari: use 200-400mm focal length for rhino and elephant shots; pre-sunrise entry gives the best soft diffused light. Majuli mask-making workshops allow close-up documentary photography of the entire craft process — get permission first. Brahmaputra river shots at dusk from Guwahati's Uzan Bazaar ghats. The Joysagar Tank in Sivasagar reflects the Sivasagar Dol temple at sunrise.",
+        bestTime: "October to April is the best window. November-February is peak for Kaziranga: coolest temperatures, dry forest floor, clearest animal sightings. Majuli is best November-March when river levels are low and island roads are dry. Avoid June-September monsoon when Kaziranga partially floods and Majuli ferry schedules become unpredictable. Bihu festival (mid-April) adds cultural depth if timed.",
+        budgetGuide: "Budget per day (shared, mid-range): accommodation INR 1,000-2,500, meals INR 400-900, local transport INR 500-1,200, safari fee INR 700-1,500. Total daily range: INR 2,600-6,100. An 8-day Assam trip runs INR 21,000-49,000 per person. Kaziranga resort packages (including safari) are often better value than booking separately.",
+        safetyNotes: "Carry malaria prevention measures if visiting forest zones during monsoon transition months. Respect all safari rules strictly at Kaziranga — vehicles have been charged by rhinos in documented incidents near the western range. Keep ferry schedule flexibility for Majuli as river conditions change rapidly. Carry sufficient cash as ATMs are sparse beyond Guwahati and Jorhat.",
         mapLink,
         placeName
     };
@@ -199,10 +190,15 @@ function renderTravelEssentials(entry) {
         <h2>Travel Essentials</h2>
         <p><strong>How to Reach:</strong> ${essentials.howToReach}</p>
         <p><strong>Google Map:</strong> <a href="${essentials.mapLink}" target="_blank" rel="noopener">Open ${essentials.placeName} on Google Maps ↗</a></p>
+        <p><strong>Getting Around:</strong> ${essentials.gettingAround}</p>
         <p><strong>What to Eat:</strong> ${essentials.whatToEat}</p>
         <p><strong>Where to Eat:</strong> ${essentials.whereToEat}</p>
         <p><strong>What to Buy:</strong> ${essentials.whatToBuy}</p>
+        <p><strong>Photography Tips:</strong> ${essentials.photographyTips}</p>
+        <p><strong>Best Time to Visit:</strong> ${essentials.bestTime}</p>
+        <p><strong>Budget Guide:</strong> ${essentials.budgetGuide}</p>
         <p><strong>Interesting Tip:</strong> ${essentials.interesting}</p>
+        <p><strong>Safety Notes:</strong> ${essentials.safetyNotes}</p>
     `;
 }
 
