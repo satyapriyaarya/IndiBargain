@@ -67,16 +67,11 @@ main {
 .site-header {
     max-width: 980px;
     margin: 0 auto;
-    padding: 32px 0;
+    padding: 24px 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 24px;
-    position: sticky;
-    top: 0;
-    background: linear-gradient(180deg, rgba(3, 7, 18, 0.9) 0%, rgba(3, 7, 18, 0) 100%);
-    backdrop-filter: blur(16px);
-    z-index: 10;
+    gap: 20px;
 }
 
 .logo {
@@ -90,7 +85,7 @@ main {
 
 .site-nav {
     display: flex;
-    gap: 16px;
+    gap: 14px;
 }
 
 .site-nav a {
