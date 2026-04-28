@@ -139,6 +139,73 @@ function toHtml(text) {
     return (text || "").replace(/\r?\n\r?\n/g, "<br><br>").replace(/\r?\n/g, "<br>");
 }
 
+function toReadablePlaceName(entry) {
+    const fallback = "this location";
+    if (!entry || !entry.sourceUrl) {
+        return fallback;
+    }
+
+    try {
+        const parsed = new URL(entry.sourceUrl);
+        const raw = decodeURIComponent((parsed.pathname || "").split("/").pop() || "");
+        if (!raw) {
+            return fallback;
+        }
+
+        return raw
+            .replace(/_/g, " ")
+            .replace(/\b\w/g, char => char.toUpperCase());
+    } catch (error) {
+        return fallback;
+    }
+}
+
+function getTravelEssentials(entry) {
+    const haystack = `${entry && entry.slug ? entry.slug : ""} ${entry && entry.title ? entry.title : ""} ${entry && entry.content ? entry.content : ""} ${entry && entry.sourceUrl ? entry.sourceUrl : ""}`.toLowerCase();
+    const placeName = toReadablePlaceName(entry);
+    const mapQuery = entry && (entry.title || entry.slug) ? `${entry.title || entry.slug}, India` : `${placeName}, India`;
+    const mapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
+
+    const isAssam = /assam|guwahati|kaziranga|majuli|sivasagar/.test(haystack);
+
+    if (isAssam) {
+        return {
+            howToReach: "Guwahati is the primary gateway; for Majuli and upper-Assam segments keep road and ferry timing buffers.",
+            whatToEat: "Assamese thali, tenga fish, smoked local dishes, pitha, and black rice sweets.",
+            whereToEat: "Local Assamese kitchens in Guwahati and homestay/community dining setups in Majuli.",
+            whatToBuy: "Assam tea, handloom textiles, bamboo crafts, and organic local products.",
+            interesting: "A flexible half-day buffer makes Assam itineraries smoother, especially during ferry-dependent legs.",
+            mapLink,
+            placeName
+        };
+    }
+
+    return {
+        howToReach: "Use the nearest major airport or railhead and keep a 3-4 hour local transfer buffer on active sightseeing days.",
+        whatToEat: "Prefer one local signature meal and one simple high-energy meal for better travel pacing.",
+        whereToEat: "Choose highly rated local spots close to your route instead of cross-city detours during peak hours.",
+        whatToBuy: "Focus on one or two authentic regional products from verified shops.",
+        interesting: "Plan one sunrise block and one sunset block for better photography and pacing.",
+        mapLink,
+        placeName
+    };
+}
+
+function renderTravelEssentials(entry) {
+    const essentials = getTravelEssentials(entry);
+
+    return `
+        <hr>
+        <h2>Travel Essentials</h2>
+        <p><strong>How to Reach:</strong> ${essentials.howToReach}</p>
+        <p><strong>Google Map:</strong> <a href="${essentials.mapLink}" target="_blank" rel="noopener">Open ${essentials.placeName} on Google Maps ↗</a></p>
+        <p><strong>What to Eat:</strong> ${essentials.whatToEat}</p>
+        <p><strong>Where to Eat:</strong> ${essentials.whereToEat}</p>
+        <p><strong>What to Buy:</strong> ${essentials.whatToBuy}</p>
+        <p><strong>Interesting Tip:</strong> ${essentials.interesting}</p>
+    `;
+}
+
 function renderEntry(entry, index, total, items) {
     document.title = `${entry.title || entry.day} · IndiBargain Blog`;
 
@@ -157,7 +224,7 @@ function renderEntry(entry, index, total, items) {
             <span>Part ${index + 1} / ${total}</span>
         </p>
         ${gallery}
-        <div class="post-content">${toHtml(entry.content)}</div>
+        <div class="post-content">${toHtml(entry.content)}${renderTravelEssentials(entry)}</div>
         <p class="post-source"><a href="${entry.sourceUrl}" target="_blank" rel="noopener">Reference link ↗</a></p>
         <div class="journey-nav">
             ${prev ? `<a href="/blogs/journey/assam/day/#${encodeURIComponent(prev.slug)}">← ${prev.day}</a>` : "<span></span>"}
