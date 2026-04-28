@@ -25,7 +25,14 @@ function renderPosts(posts) {
             const journeyRoutes = {
                 "leh-ladakh-15-day-journey": "journey/index.html",
                 "valley-of-flowers-10-day-journey": "journey/valley-of-flowers/index.html",
-                "assam-east-india-8-day-itinerary": "journey/assam/index.html"
+                "assam-east-india-8-day-itinerary": "journey/assam/index.html",
+                "goa-south-india-6-day-journey": "journey/goa/index.html",
+                "rameshwaram-south-india-5-day-journey": "journey/rameshwaram/index.html",
+                "golden-triangle-7-day-journey": "journey/golden-triangle/index.html",
+                "jaisalmer-5-day-desert-journey": "journey/jaisalmer/index.html",
+                "udaipur-city-of-lakes-4-day-journey": "journey/city-of-lakes/index.html",
+                "jaipur-pink-city-4-day-journey": "journey/pink-city/index.html",
+                "kerala-backwaters-6-day-journey": "journey/kerala-backwaters/index.html"
             };
 
             const postHref = journeyRoutes[post.slug]

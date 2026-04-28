@@ -4,7 +4,14 @@ const slug = params.get("slug");
 const JOURNEY_SERIES_ROUTES = {
     "leh-ladakh-15-day-journey": "/blogs/journey/index.html",
     "valley-of-flowers-10-day-journey": "/blogs/journey/valley-of-flowers/index.html",
-    "assam-east-india-8-day-itinerary": "/blogs/journey/assam/index.html"
+    "assam-east-india-8-day-itinerary": "/blogs/journey/assam/index.html",
+    "goa-south-india-6-day-journey": "/blogs/journey/goa/index.html",
+    "rameshwaram-south-india-5-day-journey": "/blogs/journey/rameshwaram/index.html",
+    "golden-triangle-7-day-journey": "/blogs/journey/golden-triangle/index.html",
+    "jaisalmer-5-day-desert-journey": "/blogs/journey/jaisalmer/index.html",
+    "udaipur-city-of-lakes-4-day-journey": "/blogs/journey/city-of-lakes/index.html",
+    "jaipur-pink-city-4-day-journey": "/blogs/journey/pink-city/index.html",
+    "kerala-backwaters-6-day-journey": "/blogs/journey/kerala-backwaters/index.html"
 };
 
 if (slug && JOURNEY_SERIES_ROUTES[slug]) {
