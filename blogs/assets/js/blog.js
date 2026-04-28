@@ -24,7 +24,8 @@ function renderPosts(posts) {
         .map(post => {
             const journeyRoutes = {
                 "leh-ladakh-15-day-journey": "journey/index.html",
-                "valley-of-flowers-10-day-journey": "journey/valley-of-flowers/index.html"
+                "valley-of-flowers-10-day-journey": "journey/valley-of-flowers/index.html",
+                "assam-east-india-8-day-itinerary": "journey/assam/index.html"
             };
 
             const postHref = journeyRoutes[post.slug]

@@ -3,7 +3,8 @@ const params = new URLSearchParams(window.location.search);
 const slug = params.get("slug");
 const JOURNEY_SERIES_ROUTES = {
     "leh-ladakh-15-day-journey": "/blogs/journey/index.html",
-    "valley-of-flowers-10-day-journey": "/blogs/journey/valley-of-flowers/index.html"
+    "valley-of-flowers-10-day-journey": "/blogs/journey/valley-of-flowers/index.html",
+    "assam-east-india-8-day-itinerary": "/blogs/journey/assam/index.html"
 };
 
 if (slug && JOURNEY_SERIES_ROUTES[slug]) {
