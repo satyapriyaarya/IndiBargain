@@ -1,10 +1,13 @@
 const postShell = document.getElementById("postShell");
 const params = new URLSearchParams(window.location.search);
 const slug = params.get("slug");
-const JOURNEY_SERIES_SLUG = "leh-ladakh-15-day-journey";
+const JOURNEY_SERIES_ROUTES = {
+    "leh-ladakh-15-day-journey": "/blogs/journey/index.html",
+    "valley-of-flowers-10-day-journey": "/blogs/journey/valley-of-flowers/index.html"
+};
 
-if (slug === JOURNEY_SERIES_SLUG) {
-    window.location.replace("/blogs/journey/index.html");
+if (slug && JOURNEY_SERIES_ROUTES[slug]) {
+    window.location.replace(JOURNEY_SERIES_ROUTES[slug]);
 }
 
 async function loadPost() {
@@ -69,6 +72,6 @@ function renderError() {
     `;
 }
 
-if (slug !== JOURNEY_SERIES_SLUG) {
+if (!(slug && JOURNEY_SERIES_ROUTES[slug])) {
     loadPost();
 }

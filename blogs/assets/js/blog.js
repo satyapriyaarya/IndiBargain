@@ -22,8 +22,13 @@ function renderPosts(posts) {
     postGrid.innerHTML = posts
         .sort((a, b) => new Date(b.date) - new Date(a.date))
         .map(post => {
-            const postHref = post.slug === "leh-ladakh-15-day-journey"
-                ? "journey/index.html"
+            const journeyRoutes = {
+                "leh-ladakh-15-day-journey": "journey/index.html",
+                "valley-of-flowers-10-day-journey": "journey/valley-of-flowers/index.html"
+            };
+
+            const postHref = journeyRoutes[post.slug]
+                ? journeyRoutes[post.slug]
                 : `post.html?slug=${encodeURIComponent(post.slug)}`;
 
             return `
