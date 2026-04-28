@@ -3,21 +3,19 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>IndiBargain · AI Pulse</title>
-    <meta name="description" content="Daily AI intel: curated articles, fresh headlines, and fun facts powered by open data.">
-    <meta name="keywords" content="AI news India, artificial intelligence trends, machine learning updates, generative art inspiration, AI fun facts, open source AI tools">
+    <title>IndiBargain · Local AI for India</title>
+    <meta name="description" content="Practical insights on building AI products for the Indian market with local language support and regional context.">
+    <meta name="keywords" content="AI India, local language AI, machine learning India, AI strategy, product building">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://indibargain.com/">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="IndiBargain AI Pulse">
-    <meta property="og:description" content="Fast AI headlines, curated explainers, and playful facts sourced from open APIs for builders in India and beyond.">
+    <meta property="og:title" content="IndiBargain · Local AI for India">
+    <meta property="og:description" content="Building AI products that matter for the Indian market.">
     <meta property="og:url" content="https://indibargain.com/">
-    <meta property="og:image" content="https://indibargain.com/assets/img/logo.png">
-    <meta property="og:site_name" content="IndiBargain AI Pulse">
+    <meta property="og:site_name" content="IndiBargain">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="IndiBargain AI Pulse">
-    <meta name="twitter:description" content="Cut through the AI noise with fresh briefs, articles, visuals, and fun facts updated daily.">
-    <meta name="twitter:image" content="https://indibargain.com/assets/img/logo.png">
+    <meta name="twitter:title" content="IndiBargain · Local AI for India">
+    <meta name="twitter:description" content="Building AI products that matter for the Indian market.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
@@ -29,125 +27,60 @@
     <header class="site-header">
         <div class="logo">IndiBargain<span>AI</span></div>
         <nav class="site-nav" aria-label="Primary">
-            <a href="#pulse">Pulse</a>
-            <a href="#articles">Deep Dives</a>
-            <a href="#fun">Fun Facts</a>
-            <a href="#gallery">Visuals</a>
+            <a href="#featured">Featured</a>
             <a href="/blogs/index.html">Blogs</a>
+            <a href="/journey/index.html">Journey</a>
         </nav>
     </header>
 
     <main>
         <section class="hero" id="top">
-            <p class="eyebrow">Your daily AI drip</p>
-            <h1>Signal over noise for curious humans</h1>
-            <p class="lede">We surface brisk AI headlines, snackable explainers, and playful facts so you can stay sharp without doom-scrolling.</p>
+            <p class="eyebrow">For builders in India</p>
+            <h1>Build AI that speaks their language</h1>
+            <p class="lede">The real AI opportunity in India isn't bigger models—it's relevance. Products built with local language support, price sensitivity, and real-world workflows win.</p>
             <div class="hero-cta">
-                <button class="cta" type="button" data-action="notify">Notify me</button>
-                <button class="cta secondary" type="button" data-action="surprise">Random fact</button>
-                <button class="cta ghost" type="button" data-action="contact">Send a tip</button>
-            </div>
-            <ul class="hero-metrics">
-                <li><span id="metric-headlines">0</span><small>headlines filtered today</small></li>
-                <li><span id="metric-articles">0</span><small>human-curated reads</small></li>
-                <li><span id="metric-facts">0</span><small>fun facts queued</small></li>
-            </ul>
-        </section>
-
-        <section class="panel" id="pulse">
-            <div class="panel-head">
-                <div>
-                    <p class="eyebrow">AI pulse</p>
-                    <h2>Latest drops from the open web</h2>
-                </div>
-                <span class="timestamp" id="newsTimestamp">Syncing…</span>
-            </div>
-            <div class="panel-grid" id="newsGrid" aria-live="polite">
-                <article class="card skeleton"></article>
-                <article class="card skeleton"></article>
-                <article class="card skeleton"></article>
-                <article class="card skeleton"></article>
+                <a href="/blogs/index.html" class="cta">Read our insights</a>
+                <a href="/journey/index.html" class="cta secondary">15-Day Journey</a>
             </div>
         </section>
 
-        <section class="panel" id="articles">
+        <section class="panel" id="featured">
             <div class="panel-head">
                 <div>
-                    <p class="eyebrow">Deep dives</p>
-                    <h2>Original explainers, under 3 minutes</h2>
+                    <p class="eyebrow">Featured</p>
+                    <h2>Latest articles on AI strategy & engineering</h2>
                 </div>
             </div>
-            <div class="panel-grid" id="articleGrid">
+            <div class="panel-grid" id="featuredGrid">
                 <!-- populated by app.js -->
             </div>
         </section>
 
-        <section class="panel" id="fun">
-            <div class="panel-head">
-                <div>
-                    <p class="eyebrow">Fun facts</p>
-                    <h2>Shareable AI tidbits</h2>
+        <section class="panel cta-panel">
+            <div class="panel-content">
+                <p class="eyebrow">Ready to build?</p>
+                <h2>Explore our 15-day Leh Ladakh journey</h2>
+                <p>Or dive into practical guides on AI engineering, product strategy, and building for emerging markets.</p>
+                <div style="display: flex; gap: 16px; margin-top: 24px;">
+                    <a href="/journey/index.html" class="cta">View Journey</a>
+                    <a href="/blogs/index.html" class="cta ghost">All Articles</a>
                 </div>
-                <button class="cta secondary" type="button" data-action="refresh-facts">Refresh</button>
             </div>
-            <div class="fact-grid" id="factGrid">
-                <article class="fact skeleton"></article>
-                <article class="fact skeleton"></article>
-                <article class="fact skeleton"></article>
-            </div>
-        </section>
-
-        <section class="panel" id="gallery">
-            <div class="panel-head">
-                <div>
-                    <p class="eyebrow">Visual inspo</p>
-                    <h2>Generative moods worth bookmarking</h2>
-                </div>
-                <span class="timestamp" id="galleryTimestamp">Auto-updated hourly</span>
-            </div>
-            <div class="gallery" id="galleryGrid"></div>
         </section>
     </main>
 
     <footer class="site-footer">
-        <p>Crafted in India · Powered by open APIs</p>
+        <p>Crafted in India · Open data · No trackers</p>
         <div class="footer-actions">
-            <span>Have intel to share?</span>
-            <button class="cta ghost" type="button" data-action="contact">Send a tip</button>
+            <a href="/blogs/index.html">Blogs</a>
+            <span>·</span>
+            <a href="/journey/index.html">Journey</a>
         </div>
     </footer>
 
-    <dialog id="notifyDialog">
-        <form method="dialog">
-            <h3>Stay in the loop</h3>
-            <p>Drop your email and we will ping you when the daily AI digest expands.</p>
-            <label>
-                <span>Email</span>
-                <input type="email" name="email" required placeholder="you@example.com">
-            </label>
-            <menu>
-                <button value="cancel">Close</button>
-                <button value="submit" class="cta">Send</button>
-            </menu>
-        </form>
-    </dialog>
-
-    <dialog id="contactDialog" class="contact-dialog">
-        <button class="dialog-close" type="button" data-close="contact" aria-label="Close contact form">×</button>
-        <div class="contact-shell">
-            <article class="contact-copy">
-                <p class="eyebrow">Say hello</p>
-                <h2>Drop ideas, collabs, or scoops</h2>
-                <p class="lede">Messages land directly in the IndiBargain inbox (no email exposed). Expect a human reply within 24 hours.</p>
-                <ul class="contact-list">
-                    <li>🪄 Product feedback</li>
-                    <li>🤝 Partnership requests</li>
-                    <li>📣 Press or speaking</li>
-                    <li>💡 Story tips</li>
-                </ul>
-            </article>
-            <form id="contactForm" class="contact-form" novalidate>
-                <div id="contactNotice" class="contact-notice" role="status" hidden></div>
+    <script src="assets/js/app.js" defer></script>
+</body>
+</html>
                 <label class="input-field">
                     <span>Your name</span>
                     <input type="text" name="name" required placeholder="Ananya Singh">
