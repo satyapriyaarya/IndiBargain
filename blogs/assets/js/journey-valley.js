@@ -1,4 +1,5 @@
 const journeyGrid = document.getElementById("journeyGrid");
+const wikiThumbCache = new Map();
 
 async function fetchJourneyData() {
     const candidates = [
@@ -20,10 +21,62 @@ async function fetchJourneyData() {
     throw new Error("Unable to load journey data");
 }
 
+async function resolveCoverImage(entry) {
+    const original = entry && entry.coverImage ? String(entry.coverImage) : "";
+    const shouldKeepOriginal = original && !original.includes("/blogs/assets/img/journey/");
+    if (shouldKeepOriginal) {
+        return original;
+    }
+
+    if (!entry || !entry.sourceUrl) {
+        return original;
+    }
+
+    let pageTitle = "";
+    try {
+        const parsed = new URL(entry.sourceUrl);
+        pageTitle = decodeURIComponent((parsed.pathname || "").split("/").pop() || "");
+    } catch (error) {
+        return original;
+    }
+
+    if (!pageTitle) {
+        return original;
+    }
+
+    if (wikiThumbCache.has(pageTitle)) {
+        return wikiThumbCache.get(pageTitle) || original;
+    }
+
+    const endpoint = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(pageTitle)}`;
+
+    try {
+        const response = await fetch(endpoint, { cache: "force-cache" });
+        if (!response.ok) {
+            wikiThumbCache.set(pageTitle, original);
+            return original;
+        }
+
+        const payload = await response.json();
+        const thumb = payload && payload.thumbnail && payload.thumbnail.source ? payload.thumbnail.source : original;
+        wikiThumbCache.set(pageTitle, thumb || original);
+        return thumb || original;
+    } catch (error) {
+        wikiThumbCache.set(pageTitle, original);
+        return original;
+    }
+}
+
 async function loadJourney() {
     try {
         const items = await fetchJourneyData();
-        renderJourney(items);
+        const itemsWithCovers = await Promise.all(
+            (Array.isArray(items) ? items : []).map(async (entry) => ({
+                ...entry,
+                coverImage: await resolveCoverImage(entry)
+            }))
+        );
+        renderJourney(itemsWithCovers);
     } catch (error) {
         journeyGrid.innerHTML = `<article class="post-card"><p>Could not load journey right now.</p></article>`;
     }
