@@ -37,7 +37,7 @@ function renderJourney(items) {
 
     journeyGrid.innerHTML = items
         .map((entry, index) => `
-            <article class="post-card">
+            <article class="post-card" data-link="/journey/day/#${encodeURIComponent(entry.slug)}" style="cursor: pointer;">
                 ${entry.coverImage ? `<img class="journey-cover" src="${entry.coverImage}" alt="${entry.title || entry.day}">` : ""}
                 <p class="eyebrow">${entry.day}</p>
                 <h2>${entry.title || entry.day}</h2>
@@ -50,6 +50,15 @@ function renderJourney(items) {
             </article>
         `)
         .join("");
+
+    // Add click event listeners to entire cards
+    document.querySelectorAll('.post-card[data-link]').forEach(card => {
+        card.addEventListener('click', (e) => {
+            // Don't navigate if clicking on a link (to allow link behavior)
+            if (e.target.tagName === 'A') return;
+            window.location.href = card.getAttribute('data-link');
+        });
+    });
 }
 
 loadJourney();
