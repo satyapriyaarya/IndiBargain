@@ -27,7 +27,7 @@ function renderPosts(posts) {
                 : `post.html?slug=${encodeURIComponent(post.slug)}`;
 
             return `
-            <article class="post-card">
+            <article class="post-card" data-link="${postHref}" role="link" tabindex="0" style="cursor: pointer;">
                 <p class="eyebrow">${post.category || "General"}</p>
                 <h2>${post.title}</h2>
                 <p>${post.excerpt}</p>
@@ -40,6 +40,24 @@ function renderPosts(posts) {
         `;
         })
         .join("");
+
+    // Make the full card navigate like the journey cards.
+    document.querySelectorAll(".post-card[data-link]").forEach(card => {
+        const targetHref = card.getAttribute("data-link");
+        if (!targetHref) return;
+
+        card.addEventListener("click", (event) => {
+            if (event.target.closest("a")) return;
+            window.location.href = targetHref;
+        });
+
+        card.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                window.location.href = targetHref;
+            }
+        });
+    });
 }
 
 loadPosts();
