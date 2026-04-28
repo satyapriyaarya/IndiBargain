@@ -202,15 +202,58 @@ function renderTravelEssentials(entry) {
     `;
 }
 
-function renderEntry(entry, index, total, items) {
+async function resolveGalleryImages(entry) {
+    const cache = window.__galleryImageCache = window.__galleryImageCache || {};
+    if (!Array.isArray(entry?.images) || entry.images.length === 0) {
+        return [];
+    }
+
+    const cacheKey = `${entry.sourceUrl}`;
+    if (cache[cacheKey]) {
+        return cache[cacheKey];
+    }
+
+    try {
+        const parsed = new URL(entry.sourceUrl);
+        const title = decodeURIComponent((parsed.pathname || "").split("/").pop() || "");
+        const response = await fetch(`https://en.wikipedia.org/api/rest_v1/page/media-list/${encodeURIComponent(title)}`);
+        if (response.ok) {
+            const data = await response.json();
+            if (Array.isArray(data.items) && data.items.length > 0) {
+                const images = data.items.slice(0, 2).map(item => item.srcset?.[0]?.src || item.src).filter(Boolean);
+                if (images.length > 0) {
+                    cache[cacheKey] = images;
+                    return images;
+                }
+            }
+        }
+    } catch (error) {
+    }
+
+    cache[cacheKey] = entry.images || [];
+    return entry.images;
+}
+
+async function renderGalleryAsync(entry) {
+    if (!Array.isArray(entry?.images) || entry.images.length === 0) {
+        return "";
+    }
+
+    const resolvedImages = await resolveGalleryImages(entry);
+    if (resolvedImages.length === 0) {
+        return "";
+    }
+
+    return `<div class="journey-gallery">${resolvedImages.map((src, i) => `<img src="${src}" alt="${entry.title || entry.day} photo ${i + 1}" loading="lazy">`).join("")}</div>`;
+}
+
+async function renderEntryAsync(entry, index, total, items) {
     document.title = `${entry.title || entry.day} · IndiBargain Blog`;
 
     const prev = index > 0 ? items[index - 1] : null;
     const next = index < total - 1 ? items[index + 1] : null;
 
-    const gallery = Array.isArray(entry.images) && entry.images.length
-        ? `<div class="journey-gallery">${entry.images.map((src, i) => `<img src="${src}" alt="${entry.title || entry.day} photo ${i + 1}" loading="lazy">`).join("")}</div>`
-        : "";
+    const gallery = await renderGalleryAsync(entry);
 
     journeyPost.innerHTML = `
         <p class="eyebrow">${entry.day}</p>
@@ -228,6 +271,13 @@ function renderEntry(entry, index, total, items) {
             ${next ? `<a href="/blogs/journey/valley-of-flowers/day/#${encodeURIComponent(next.slug)}">${next.day} →</a>` : "<span></span>"}
         </div>
     `;
+}
+
+function renderEntry(entry, index, total, items) {
+    renderEntryAsync(entry, index, total, items).catch(error => {
+        console.error("Error rendering entry:", error);
+        renderError();
+    });
 }
 
 function renderMissing() {
