@@ -8,7 +8,8 @@
     "author": "IndiBargain Team",
     "date": "2026-04-19",
     "readTime": "15 parts",
-    "language": "hi"
+    "language": "hi",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Leh"
   },
   {
     "slug": "valley-of-flowers-10-day-journey",
@@ -19,7 +20,8 @@
     "author": "IndiBargain Team",
     "date": "2026-04-28",
     "readTime": "10 parts",
-    "language": "en"
+    "language": "en",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Valley_of_Flowers"
   },
   {
     "slug": "assam-east-india-8-day-itinerary",
@@ -30,7 +32,8 @@
     "author": "IndiBargain Team",
     "date": "2026-04-28",
     "readTime": "8 parts",
-    "language": "en"
+    "language": "en",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Kaziranga_National_Park"
   },
   {
     "slug": "goa-south-india-6-day-journey",
@@ -41,7 +44,8 @@
     "author": "IndiBargain Team",
     "date": "2026-04-28",
     "readTime": "6 parts",
-    "language": "en"
+    "language": "en",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Goa"
   },
   {
     "slug": "rameshwaram-south-india-5-day-journey",
@@ -52,7 +56,8 @@
     "author": "IndiBargain Team",
     "date": "2026-04-28",
     "readTime": "5 parts",
-    "language": "en"
+    "language": "en",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Rameswaram"
   },
   {
     "slug": "golden-triangle-7-day-journey",
@@ -63,7 +68,8 @@
     "author": "IndiBargain Team",
     "date": "2026-04-28",
     "readTime": "7 parts",
-    "language": "en"
+    "language": "en",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Taj_Mahal"
   },
   {
     "slug": "jaisalmer-5-day-desert-journey",
@@ -74,7 +80,8 @@
     "author": "IndiBargain Team",
     "date": "2026-04-28",
     "readTime": "5 parts",
-    "language": "en"
+    "language": "en",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Jaisalmer"
   },
   {
     "slug": "udaipur-city-of-lakes-4-day-journey",
@@ -85,7 +92,8 @@
     "author": "IndiBargain Team",
     "date": "2026-04-28",
     "readTime": "4 parts",
-    "language": "en"
+    "language": "en",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Udaipur"
   },
   {
     "slug": "jaipur-pink-city-4-day-journey",
@@ -96,7 +104,8 @@
     "author": "IndiBargain Team",
     "date": "2026-04-28",
     "readTime": "4 parts",
-    "language": "en"
+    "language": "en",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Jaipur"
   },
   {
     "slug": "kerala-backwaters-6-day-journey",
@@ -107,6 +116,7 @@
     "author": "IndiBargain Team",
     "date": "2026-04-28",
     "readTime": "6 parts",
-    "language": "en"
+    "language": "en",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Kochi"
   }
 ]

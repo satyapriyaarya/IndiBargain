@@ -1,6 +1,7 @@
 const postGrid = document.getElementById("postGrid");
 const PRIMARY_BLOG_SLUG = "leh-ladakh-15-day-journey";
 const PRIMARY_BLOG_IMAGE = "/blogs/assets/img/journey/716a7116dcc4c7691bce3b549effcd5d28e0d079.jpg";
+const wikiThumbCache = new Map();
 
 async function loadPosts() {
     try {
@@ -8,10 +9,60 @@ async function loadPosts() {
         if (!response.ok) {
             throw new Error("Unable to load posts");
         }
-        const posts = await response.json();
-        renderPosts(posts);
+        const posts = await fetch("data/posts.json", { cache: "no-store" }).then(r => r.json());
+        const postsWithImages = await Promise.all(
+            posts.map(async (post) => ({
+                ...post,
+                coverImage: await resolveCoverImage(post)
+            }))
+        );
+        renderPosts(postsWithImages);
     } catch (error) {
         postGrid.innerHTML = `<article class="post-card"><p>Could not load posts right now.</p></article>`;
+    }
+}
+
+async function resolveCoverImage(post) {
+    if (post.slug === PRIMARY_BLOG_SLUG) {
+        return PRIMARY_BLOG_IMAGE;
+    }
+
+    if (!post.sourceUrl) {
+        return null;
+    }
+
+    let pageTitle = "";
+    try {
+        const parsed = new URL(post.sourceUrl);
+        pageTitle = decodeURIComponent((parsed.pathname || "").split("/").pop() || "");
+    } catch (error) {
+        return null;
+    }
+
+    if (!pageTitle) {
+        return null;
+    }
+
+    if (wikiThumbCache.has(pageTitle)) {
+        return wikiThumbCache.get(pageTitle) || null;
+    }
+
+    const endpoint = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(pageTitle)}`;
+
+    try {
+        const response = await fetch(endpoint, { cache: "force-cache" });
+        if (!response.ok) {
+            wikiThumbCache.set(pageTitle, null);
+            return null;
+        }
+
+        const payload = await response.json();
+        const thumb = payload && payload.thumbnail && payload.thumbnail.source ? payload.thumbnail.source : null;
+        wikiThumbCache.set(pageTitle, thumb || null);
+        return thumb || null;
+    } catch (error) {
+        wikiThumbCache.set(pageTitle, null);
+        return null;
     }
 }
 
@@ -68,6 +119,7 @@ function renderPosts(posts) {
 
             return `
             <article class="post-card" data-link="${postHref}" role="link" tabindex="0" style="cursor: pointer;">
+                ${post.coverImage ? `<img class="post-cover" src="${post.coverImage}" alt="${post.title} cover">` : ""}
                 <p class="eyebrow">${post.category || "General"}</p>
                 <h2>${post.title}</h2>
                 <p>${post.excerpt}</p>
