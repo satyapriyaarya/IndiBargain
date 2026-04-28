@@ -35,7 +35,7 @@ body::before {
 }
 
 main {
-    max-width: 1200px;
+    max-width: 980px;
     margin: 0 auto;
 }
 
@@ -65,7 +65,7 @@ main {
 }
 
 .site-header {
-    max-width: 1200px;
+    max-width: 980px;
     margin: 0 auto;
     padding: 32px 0;
     display: flex;
