@@ -269,6 +269,44 @@ body {
     text-align: right;
 }
 
+.travel-essentials-collapsed {
+    margin-top: 16px;
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    background: rgba(20, 26, 48, 0.45);
+    overflow: hidden;
+}
+
+.travel-essentials-collapsed summary {
+    cursor: pointer;
+    padding: 12px 14px;
+    color: var(--accent);
+    font-weight: 700;
+    list-style: none;
+}
+
+.travel-essentials-collapsed summary::-webkit-details-marker {
+    display: none;
+}
+
+.travel-essentials-collapsed summary::after {
+    content: "+";
+    float: right;
+    color: var(--muted);
+}
+
+.travel-essentials-collapsed[open] summary::after {
+    content: "-";
+}
+
+.travel-essentials-content {
+    padding: 4px 14px 14px;
+}
+
+.travel-essentials-content p {
+    margin: 0 0 10px;
+}
+
 .skeleton {
     min-height: 160px;
     background: rgba(20, 26, 48, 0.8);

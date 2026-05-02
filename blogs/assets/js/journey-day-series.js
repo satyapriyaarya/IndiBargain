@@ -397,12 +397,10 @@ function getTravelEssentials(entry) {
         placeName
     };
 }
-function renderTravelEssentials(entry) {
+function renderTravelEssentials(entry, collapsed) {
     const essentials = getTravelEssentials(entry);
 
-    return `
-        <hr>
-        <h2>Travel Essentials</h2>
+    const essentialsBody = `
         <p><strong>How to Reach:</strong> ${essentials.howToReach}</p>
         <p><strong>Google Map:</strong> <a href="${essentials.mapLink}" target="_blank" rel="noopener">Open ${essentials.placeName} on Google Maps â†—</a></p>
         <p><strong>Getting Around:</strong> ${essentials.gettingAround || ""}</p>
@@ -414,6 +412,21 @@ function renderTravelEssentials(entry) {
         <p><strong>Budget Guide:</strong> ${essentials.budgetGuide || ""}</p>
         <p><strong>Interesting Tip:</strong> ${essentials.interesting}</p>
         <p><strong>Safety Notes:</strong> ${essentials.safetyNotes || ""}</p>
+    `;
+
+    if (collapsed) {
+        return `
+            <hr>
+            <details class="travel-essentials-collapsed">
+                <summary>Travel Essentials</summary>
+                <div class="travel-essentials-content">${essentialsBody}</div>
+            </details>
+        `;
+    }
+
+    return `
+        <hr>
+        <h2>Travel Essentials</h2>${essentialsBody}
     `;
 }
 
@@ -434,7 +447,7 @@ async function renderEntryAsync(entry, index, total, items) {
             <span>Part ${index + 1} / ${total}</span>
         </p>
         ${gallery}
-        <div class="post-content">${toHtml(entry.content)}${renderTravelEssentials(entry)}</div>
+        <div class="post-content">${toHtml(entry.content)}${renderTravelEssentials(entry, index !== 0)}</div>
         <p class="post-source"><a href="${entry.sourceUrl}" target="_blank" rel="noopener">Reference link â†—</a></p>
         <div class="journey-nav">
             ${prev ? `<a href="${basePath}/day/#${encodeURIComponent(prev.slug)}">â† ${prev.day}</a>` : "<span></span>"}
