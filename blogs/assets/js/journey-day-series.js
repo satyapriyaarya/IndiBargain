@@ -141,6 +141,10 @@ window.addEventListener("popstate", () => {
     renderCurrentSelection();
 });
 
+function toHtml(text) {
+    return (text || "").replace(/\r?\n\r?\n/g, "<br><br>").replace(/\r?\n/g, "<br>");
+}
+
 async function resolveCoverImage(entry) {
     const cache = window.__coverImageCache = window.__coverImageCache || {};
     if (!entry || !entry.sourceUrl) {
