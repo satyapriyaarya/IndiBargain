@@ -1,8 +1,92 @@
 [
-  {"day":"Day 1","date":"2026-08-12","slug":"day-1-arrival-kochi-fort","title":"Arrival in Kochi + Fort Kochi Evening","excerpt":"Start with colonial streets, cafe culture, and waterfront sunset blocks.","content":"Check in around Fort Kochi or Ernakulam based on preference for charm vs transit access. Keep first day for slow orientation and seaside walk.\n\nCover Chinese fishing net zone and nearby lanes for art cafes and heritage facades.\n\nEarly dinner and rest because Munnar transfer begins next day.","sourceUrl":"https://en.wikipedia.org/wiki/Kochi","coverImage":"/blogs/assets/img/journey/64a11ae9534d5982e0bfdab18fba7796fdf74248.jpg","images":["/blogs/assets/img/journey/64e3404c628496ba14e57940d8296df9aa32a928.jpg","/blogs/assets/img/journey/6656ead07ba47ed99e1afc038c00909c1ad04302.jpg"],"language":"en"},
-  {"day":"Day 2","date":"2026-08-13","slug":"day-2-kochi-to-munnar","title":"Road to Munnar + Tea Valley Sunset","excerpt":"Transition from coast to hills with scenic stops and gentle altitude pacing.","content":"Start after breakfast for Munnar transfer and keep 2-3 short breaks on ghat roads. Motion sickness meds help for first-timers.\n\nReach by afternoon and keep evening at a tea-estate viewpoint instead of aggressive sightseeing.\n\nNight in Munnar should be warm-layer ready.","sourceUrl":"https://en.wikipedia.org/wiki/Munnar","coverImage":"/blogs/assets/img/journey/6738428d499a16c90332a378b2a8344aabb71421.jpg","images":["/blogs/assets/img/journey/684226f8f4738ec2e286dc90e4472bb0a93e69d2.jpg","/blogs/assets/img/journey/68feb86d2e8c7c51c71ffa8e5d8bc846e749f557.jpg"],"language":"en"},
-  {"day":"Day 3","date":"2026-08-14","slug":"day-3-munnar-tea-and-top-station","title":"Munnar Full Day: Tea Museum + Top Station","excerpt":"Blend scenic drives, tea heritage, and high-viewpoint weather windows.","content":"Begin early with Top Station side if weather is clear. Clouds build quickly, so morning gives better valley visibility.\n\nCover tea museum and one tea-tasting stop to make the day educational, not only visual.\n\nReturn before dark and keep a calm dinner in town.","sourceUrl":"https://en.wikipedia.org/wiki/Munnar","coverImage":"/blogs/assets/img/journey/6968df4e8acac2ca723cc4d0860b320f5a30d6f2.jpg","images":["/blogs/assets/img/journey/69d5b24e5b8fb86aa66a95dcf36ff6176888f6a3.jpg","/blogs/assets/img/journey/69dada549c16aaae8c61d50c19c201250269b3fd.jpg"],"language":"en"},
-  {"day":"Day 4","date":"2026-08-15","slug":"day-4-munnar-to-thekkady","title":"Munnar to Thekkady + Spice Trails","excerpt":"Move from tea mountains to forest-spice belt with controlled transit pacing.","content":"Leave Munnar by late morning and target Thekkady check-in by afternoon. Keep route breaks short and hydration high.\n\nEvening can be spent in spice plantation guided walk or local market exploration.\n\nTomorrow includes backwater transition, so keep luggage compact and ready.","sourceUrl":"https://en.wikipedia.org/wiki/Thekkady","coverImage":"/blogs/assets/img/journey/69f590fdfcd3ded5bb208e7ea51a13f28af5b2fa.jpg","images":["/blogs/assets/img/journey/6a4685907c6ab6aca27a3d587afd10f889f0f414.jpg","/blogs/assets/img/journey/6b0e0637683b45635615778ab5f7595879b85603.jpg"],"language":"en"},
-  {"day":"Day 5","date":"2026-08-16","slug":"day-5-thekkady-to-alleppey-houseboat","title":"To Alleppey + Houseboat Experience","excerpt":"Switch from hill roads to backwater calm with a floating stay format.","content":"Transfer to Alleppey and board houseboat by check-in window. Carry essentials in a small bag and keep valuables weather-protected.\n\nBackwater cruising pace is intentionally slow, so use the day for reading, photography, and relaxed meals.\n\nSunset over canals is the visual highlight of this route.","sourceUrl":"https://en.wikipedia.org/wiki/Alappuzha","coverImage":"/blogs/assets/img/journey/6bb7dd82f72082e22b5232753b61ba8aa4d8c2f2.jpg","images":["/blogs/assets/img/journey/6bb8016a0370a22e8ec78ef3ce31693c4db676f7.jpg","/blogs/assets/img/journey/6c2b9cf169f27301acf2fdc4e3e37c3aa75c5c7b.jpg"],"language":"en"},
-  {"day":"Day 6","date":"2026-08-17","slug":"day-6-return-and-budget-wrap","title":"Return + Kerala Budget Summary","excerpt":"Close your Kerala route with transfer strategy and spend recap.","content":"Disembark after breakfast and transfer to Kochi/airport/rail based on onward plan. Keep 4-5 hour departure margin for safe routing.\n\nTypical per-person shared budget for this 6-day route: INR 20,000 to 45,000 depending on houseboat type and resort category.\n\nBest season: September to March for comfortable weather balance.","sourceUrl":"https://en.wikipedia.org/wiki/Kerala","coverImage":"/blogs/assets/img/journey/6cf3eba3f7cc6eac9fbbbc85b2f9569b615e0547.jpg","images":["/blogs/assets/img/journey/6d358077b6a4dab933ef2445decf30e2d3ee2d98.jpg","/blogs/assets/img/journey/6f1f2b7e481b53dbf9d8b91f52551a7324e5d89f.jpg"],"language":"en"}
+  {
+    "day": "Day 1",
+    "date": "2026-08-12",
+    "slug": "day-1-arrival-kochi-fort",
+    "title": "Arrival in Kochi + Fort Kochi Evening",
+    "excerpt": "Start with colonial streets, cafe culture, and waterfront sunset blocks.",
+    "content": "Check in around Fort Kochi or Ernakulam based on preference for charm vs transit access. Keep first day for slow orientation and seaside walk.\n\nCover Chinese fishing net zone and nearby lanes for art cafes and heritage facades.\n\nEarly dinner and rest because Munnar transfer begins next day.\n\nKerala route tip: keep one fixed window every evening to confirm next-day pickup timing, expected drive duration, and weather conditions, especially during ghat-road transfers and houseboat check-in days. A small planning check like this reduces stress, prevents missed slots, and gives you better daylight blocks for photography and local food stops.",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Kochi",
+    "coverImage": "/blogs/assets/img/journey/64a11ae9534d5982e0bfdab18fba7796fdf74248.jpg",
+    "images": [
+      "/blogs/assets/img/journey/64e3404c628496ba14e57940d8296df9aa32a928.jpg",
+      "/blogs/assets/img/journey/6656ead07ba47ed99e1afc038c00909c1ad04302.jpg"
+    ],
+    "language": "en"
+  },
+  {
+    "day": "Day 2",
+    "date": "2026-08-13",
+    "slug": "day-2-kochi-to-munnar",
+    "title": "Road to Munnar + Tea Valley Sunset",
+    "excerpt": "Transition from coast to hills with scenic stops and gentle altitude pacing.",
+    "content": "Start after breakfast for Munnar transfer and keep 2-3 short breaks on ghat roads. Motion sickness meds help for first-timers.\n\nReach by afternoon and keep evening at a tea-estate viewpoint instead of aggressive sightseeing.\n\nNight in Munnar should be warm-layer ready.\n\nKerala route tip: keep one fixed window every evening to confirm next-day pickup timing, expected drive duration, and weather conditions, especially during ghat-road transfers and houseboat check-in days. A small planning check like this reduces stress, prevents missed slots, and gives you better daylight blocks for photography and local food stops.",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Munnar",
+    "coverImage": "/blogs/assets/img/journey/6738428d499a16c90332a378b2a8344aabb71421.jpg",
+    "images": [
+      "/blogs/assets/img/journey/684226f8f4738ec2e286dc90e4472bb0a93e69d2.jpg",
+      "/blogs/assets/img/journey/68feb86d2e8c7c51c71ffa8e5d8bc846e749f557.jpg"
+    ],
+    "language": "en"
+  },
+  {
+    "day": "Day 3",
+    "date": "2026-08-14",
+    "slug": "day-3-munnar-tea-and-top-station",
+    "title": "Munnar Full Day: Tea Museum + Top Station",
+    "excerpt": "Blend scenic drives, tea heritage, and high-viewpoint weather windows.",
+    "content": "Begin early with Top Station side if weather is clear. Clouds build quickly, so morning gives better valley visibility.\n\nCover tea museum and one tea-tasting stop to make the day educational, not only visual.\n\nReturn before dark and keep a calm dinner in town.\n\nKerala route tip: keep one fixed window every evening to confirm next-day pickup timing, expected drive duration, and weather conditions, especially during ghat-road transfers and houseboat check-in days. A small planning check like this reduces stress, prevents missed slots, and gives you better daylight blocks for photography and local food stops.",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Munnar",
+    "coverImage": "/blogs/assets/img/journey/6968df4e8acac2ca723cc4d0860b320f5a30d6f2.jpg",
+    "images": [
+      "/blogs/assets/img/journey/69d5b24e5b8fb86aa66a95dcf36ff6176888f6a3.jpg",
+      "/blogs/assets/img/journey/69dada549c16aaae8c61d50c19c201250269b3fd.jpg"
+    ],
+    "language": "en"
+  },
+  {
+    "day": "Day 4",
+    "date": "2026-08-15",
+    "slug": "day-4-munnar-to-thekkady",
+    "title": "Munnar to Thekkady + Spice Trails",
+    "excerpt": "Move from tea mountains to forest-spice belt with controlled transit pacing.",
+    "content": "Leave Munnar by late morning and target Thekkady check-in by afternoon. Keep route breaks short and hydration high.\n\nEvening can be spent in spice plantation guided walk or local market exploration.\n\nTomorrow includes backwater transition, so keep luggage compact and ready.\n\nKerala route tip: keep one fixed window every evening to confirm next-day pickup timing, expected drive duration, and weather conditions, especially during ghat-road transfers and houseboat check-in days. A small planning check like this reduces stress, prevents missed slots, and gives you better daylight blocks for photography and local food stops.",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Thekkady",
+    "coverImage": "/blogs/assets/img/journey/69f590fdfcd3ded5bb208e7ea51a13f28af5b2fa.jpg",
+    "images": [
+      "/blogs/assets/img/journey/6a4685907c6ab6aca27a3d587afd10f889f0f414.jpg",
+      "/blogs/assets/img/journey/6b0e0637683b45635615778ab5f7595879b85603.jpg"
+    ],
+    "language": "en"
+  },
+  {
+    "day": "Day 5",
+    "date": "2026-08-16",
+    "slug": "day-5-thekkady-to-alleppey-houseboat",
+    "title": "To Alleppey + Houseboat Experience",
+    "excerpt": "Switch from hill roads to backwater calm with a floating stay format.",
+    "content": "Transfer to Alleppey and board houseboat by check-in window. Carry essentials in a small bag and keep valuables weather-protected.\n\nBackwater cruising pace is intentionally slow, so use the day for reading, photography, and relaxed meals.\n\nSunset over canals is the visual highlight of this route.\n\nKerala route tip: keep one fixed window every evening to confirm next-day pickup timing, expected drive duration, and weather conditions, especially during ghat-road transfers and houseboat check-in days. A small planning check like this reduces stress, prevents missed slots, and gives you better daylight blocks for photography and local food stops.",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Alappuzha",
+    "coverImage": "/blogs/assets/img/journey/6bb7dd82f72082e22b5232753b61ba8aa4d8c2f2.jpg",
+    "images": [
+      "/blogs/assets/img/journey/6bb8016a0370a22e8ec78ef3ce31693c4db676f7.jpg",
+      "/blogs/assets/img/journey/6c2b9cf169f27301acf2fdc4e3e37c3aa75c5c7b.jpg"
+    ],
+    "language": "en"
+  },
+  {
+    "day": "Day 6",
+    "date": "2026-08-17",
+    "slug": "day-6-return-and-budget-wrap",
+    "title": "Return + Kerala Budget Summary",
+    "excerpt": "Close your Kerala route with transfer strategy and spend recap.",
+    "content": "Disembark after breakfast and transfer to Kochi/airport/rail based on onward plan. Keep 4-5 hour departure margin for safe routing.\n\nTypical per-person shared budget for this 6-day route: INR 20,000 to 45,000 depending on houseboat type and resort category.\n\nBest season: September to March for comfortable weather balance.\n\nKerala route tip: keep one fixed window every evening to confirm next-day pickup timing, expected drive duration, and weather conditions, especially during ghat-road transfers and houseboat check-in days. A small planning check like this reduces stress, prevents missed slots, and gives you better daylight blocks for photography and local food stops.",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Kerala",
+    "coverImage": "/blogs/assets/img/journey/6cf3eba3f7cc6eac9fbbbc85b2f9569b615e0547.jpg",
+    "images": [
+      "/blogs/assets/img/journey/6d358077b6a4dab933ef2445decf30e2d3ee2d98.jpg",
+      "/blogs/assets/img/journey/6f1f2b7e481b53dbf9d8b91f52551a7324e5d89f.jpg"
+    ],
+    "language": "en"
+  }
 ]
