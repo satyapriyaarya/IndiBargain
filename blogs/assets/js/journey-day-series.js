@@ -406,7 +406,7 @@ function renderTravelEssentials(entry, collapsed) {
 
     const essentialsBody = `
         <p><strong>How to Reach:</strong> ${essentials.howToReach}</p>
-        <p><strong>Google Map:</strong> <a href="${essentials.mapLink}" target="_blank" rel="noopener">Open ${essentials.placeName} on Google Maps â†—</a></p>
+        <p><strong>Google Map:</strong> <a href="${essentials.mapLink}" target="_blank" rel="noopener">Open ${essentials.placeName} on Google Maps &nearr;</a></p>
         <p><strong>Getting Around:</strong> ${essentials.gettingAround || ""}</p>
         <p><strong>What to Eat:</strong> ${essentials.whatToEat}</p>
         <p><strong>Where to Eat:</strong> ${essentials.whereToEat}</p>
@@ -452,11 +452,11 @@ async function renderEntryAsync(entry, index, total, items) {
         </p>
         ${gallery}
         <div class="post-content">${toHtml(entry.content)}${renderTravelEssentials(entry, index !== 0)}</div>
-        <p class="post-source"><a href="${entry.sourceUrl}" target="_blank" rel="noopener">Reference link â†—</a></p>
+        <p class="post-source"><a href="${entry.sourceUrl}" target="_blank" rel="noopener">Reference link &nearr;</a></p>
         <div class="journey-nav">
-            ${prev ? `<a href="${basePath}/day/#${encodeURIComponent(prev.slug)}">â† ${prev.day}</a>` : "<span></span>"}
+            ${prev ? `<a href="${basePath}/day/#${encodeURIComponent(prev.slug)}">&larr; ${prev.day}</a>` : "<span></span>"}
             <a href="${basePath}/index.html">All parts</a>
-            ${next ? `<a href="${basePath}/day/#${encodeURIComponent(next.slug)}">${next.day} â†’</a>` : "<span></span>"}
+            ${next ? `<a href="${basePath}/day/#${encodeURIComponent(next.slug)}">${next.day} &rarr;</a>` : "<span></span>"}
         </div>
     `;
 }
@@ -473,7 +473,7 @@ function renderMissing() {
     journeyPost.innerHTML = `
         <h1>Journey part not found</h1>
         <p>The requested part is not available.</p>
-        <p><a href="${basePath}/index.html">â† Back to all parts</a></p>
+        <p><a href="${basePath}/index.html">&larr; Back to all parts</a></p>
     `;
 }
 
@@ -482,7 +482,7 @@ function renderError() {
     journeyPost.innerHTML = `
         <h1>Something went wrong</h1>
         <p>Unable to load this journey part right now.</p>
-        <p><a href="${basePath}/index.html">â† Back to all parts</a></p>
+        <p><a href="${basePath}/index.html">&larr; Back to all parts</a></p>
     `;
 }
 
