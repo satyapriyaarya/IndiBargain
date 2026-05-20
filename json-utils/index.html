@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>JSON Utils · IndiBargain</title>
+    <meta name="description" content="Parse, format, minify, and inspect JSON with a clean visual tree view.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://indibargain.com/json-utils/index.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="glow glow-a" aria-hidden="true"></div>
+    <div class="glow glow-b" aria-hidden="true"></div>
+
+    <header class="site-header">
+        <a class="brand" href="/index.html">IndiBargain</a>
+        <nav class="site-nav" aria-label="Primary">
+            <a href="/blogs/index.html">Travel Blogs</a>
+            <a class="active" href="/json-utils/index.html" aria-current="page">JSON Utils</a>
+            <a href="/time-utils/index.html">Time Utils</a>
+        </nav>
+    </header>
+
+    <main class="shell">
+        <section class="hero">
+            <p class="eyebrow">Utility</p>
+            <h1>JSON Utils</h1>
+            <p>Paste any JSON text, then parse, pretty print, minify, copy, and inspect it as an expandable tree.</p>
+        </section>
+
+        <section class="panel utility-strip" aria-label="JSON utility shortcuts">
+            <div class="panel-head">
+                <h2>Quick Utilities</h2>
+            </div>
+            <div class="util-grid" id="utilGrid">
+                <button class="util-chip active" type="button" data-util="viewer">JSON Viewer</button>
+                <button class="util-chip" type="button" data-util="diff">JSON Diff</button>
+                <button class="util-chip" type="button" data-util="path">JSON Path Tester</button>
+                <button class="util-chip" type="button" data-util="csv">JSON to CSV</button>
+                <button class="util-chip" type="button" data-util="schema">Schema Validator</button>
+                <button class="util-chip" type="button" data-util="normalize">Sort and Normalize</button>
+                <button class="util-chip" type="button" data-util="escape">Escape or Unescape</button>
+                <button class="util-chip" type="button" data-util="dupes">Duplicate Key Check</button>
+                <button class="util-chip" type="button" data-util="search">Large JSON Search</button>
+            </div>
+            <p id="utilHint" class="status" role="status" aria-live="polite">Selected: JSON Viewer</p>
+        </section>
+
+        <section class="utility-panel active" data-util-panel="viewer">
+            <section class="workspace" aria-label="JSON editor and viewer">
+                <div class="panel input-panel">
+                    <div class="panel-head">
+                        <h2>Input Text</h2>
+                        <button id="sampleBtn" class="btn btn-subtle" type="button">Load Sample</button>
+                    </div>
+                    <div class="import-row" aria-label="Import JSON options">
+                        <input id="urlInput" class="text-input" type="url" placeholder="https://example.com/data.json" aria-label="JSON URL">
+                        <button id="loadUrlBtn" class="btn" type="button">Load URL</button>
+                        <input id="fileInput" type="file" accept="application/json,.json" hidden>
+                        <button id="browseBtn" class="btn" type="button">Browse File</button>
+                    </div>
+                    <textarea id="inputText" spellcheck="false" aria-label="JSON input"></textarea>
+                    <div class="actions">
+                        <button id="parseBtn" class="btn btn-primary" type="button">Parse</button>
+                        <button id="prettyBtn" class="btn" type="button">Pretty</button>
+                        <button id="minifyBtn" class="btn" type="button">Minify</button>
+                        <button id="clearBtn" class="btn btn-subtle" type="button">Clear</button>
+                    </div>
+                </div>
+
+                <div class="panel output-panel">
+                    <div class="panel-head">
+                        <h2>Output JSON</h2>
+                        <button id="copyBtn" class="btn btn-subtle" type="button">Copy</button>
+                    </div>
+                    <p id="status" class="status" role="status" aria-live="polite">Ready.</p>
+                    <textarea id="outputText" spellcheck="false" aria-label="JSON output" readonly></textarea>
+                </div>
+            </section>
+
+            <section class="panel tree-panel" aria-label="JSON tree view">
+                <div class="panel-head">
+                    <h2>Tree View</h2>
+                    <div class="tree-actions">
+                        <button id="expandAllBtn" class="btn btn-subtle" type="button">Expand All</button>
+                        <button id="collapseAllBtn" class="btn btn-subtle" type="button">Collapse All</button>
+                    </div>
+                </div>
+                <div id="treeRoot" class="tree-root"></div>
+            </section>
+        </section>
+
+        <section class="utility-panel" data-util-panel="diff">
+            <section class="workspace" aria-label="JSON diff tool">
+                <div class="panel">
+                    <h2>Left JSON</h2>
+                    <textarea id="diffLeft" spellcheck="false" aria-label="Left JSON"></textarea>
+                </div>
+                <div class="panel">
+                    <h2>Right JSON</h2>
+                    <textarea id="diffRight" spellcheck="false" aria-label="Right JSON"></textarea>
+                </div>
+            </section>
+            <section class="panel tree-panel">
+                <div class="actions">
+                    <button id="runDiffBtn" class="btn btn-primary" type="button">Run Diff</button>
+                </div>
+                <pre id="diffOutput" class="mono-output">Compare two JSON documents to see added, removed, or changed fields.</pre>
+            </section>
+        </section>
+
+        <section class="utility-panel" data-util-panel="path">
+            <section class="panel tree-panel">
+                <h2>JSON Path Tester</h2>
+                <textarea id="pathInput" spellcheck="false" aria-label="JSON input for path testing"></textarea>
+                <div class="import-row">
+                    <input id="pathQuery" class="text-input" type="text" placeholder="$.user.profile.name or $.items[0].id" aria-label="JSON path query">
+                    <button id="runPathBtn" class="btn btn-primary" type="button">Evaluate Path</button>
+                </div>
+                <pre id="pathOutput" class="mono-output">Path result will appear here.</pre>
+            </section>
+        </section>
+
+        <section class="utility-panel" data-util-panel="csv">
+            <section class="panel tree-panel">
+                <h2>JSON to CSV</h2>
+                <textarea id="csvInput" spellcheck="false" aria-label="JSON input for csv"></textarea>
+                <div class="actions">
+                    <button id="runCsvBtn" class="btn btn-primary" type="button">Convert to CSV</button>
+                </div>
+                <textarea id="csvOutput" spellcheck="false" aria-label="CSV output" readonly></textarea>
+            </section>
+        </section>
+
+        <section class="utility-panel" data-util-panel="schema">
+            <section class="workspace" aria-label="Schema validator">
+                <div class="panel">
+                    <h2>JSON Data</h2>
+                    <textarea id="schemaDataInput" spellcheck="false" aria-label="JSON data"></textarea>
+                </div>
+                <div class="panel">
+                    <h2>JSON Schema</h2>
+                    <textarea id="schemaInput" spellcheck="false" aria-label="JSON schema"></textarea>
+                </div>
+            </section>
+            <section class="panel tree-panel">
+                <div class="actions">
+                    <button id="runSchemaBtn" class="btn btn-primary" type="button">Validate</button>
+                </div>
+                <pre id="schemaOutput" class="mono-output">Validation messages will appear here.</pre>
+            </section>
+        </section>
+
+        <section class="utility-panel" data-util-panel="normalize">
+            <section class="panel tree-panel">
+                <h2>Sort and Normalize JSON</h2>
+                <textarea id="normalizeInput" spellcheck="false" aria-label="Normalize input"></textarea>
+                <div class="toggle-row">
+                    <label><input id="normalizeSortKeys" type="checkbox" checked> Sort object keys</label>
+                    <label><input id="normalizeRemoveEmpty" type="checkbox"> Remove null or empty values</label>
+                </div>
+                <div class="actions">
+                    <button id="runNormalizeBtn" class="btn btn-primary" type="button">Normalize</button>
+                </div>
+                <textarea id="normalizeOutput" spellcheck="false" aria-label="Normalize output" readonly></textarea>
+            </section>
+        </section>
+
+        <section class="utility-panel" data-util-panel="escape">
+            <section class="panel tree-panel">
+                <h2>Escape or Unescape</h2>
+                <textarea id="escapeInput" spellcheck="false" aria-label="Escape input"></textarea>
+                <div class="actions">
+                    <button id="runEscapeBtn" class="btn btn-primary" type="button">Escape Text</button>
+                    <button id="runUnescapeBtn" class="btn" type="button">Unescape Text</button>
+                </div>
+                <textarea id="escapeOutput" spellcheck="false" aria-label="Escape output" readonly></textarea>
+            </section>
+        </section>
+
+        <section class="utility-panel" data-util-panel="dupes">
+            <section class="panel tree-panel">
+                <h2>Duplicate Key Check</h2>
+                <textarea id="dupeInput" spellcheck="false" aria-label="Duplicate key input"></textarea>
+                <div class="actions">
+                    <button id="runDupeBtn" class="btn btn-primary" type="button">Check Duplicate Keys</button>
+                </div>
+                <pre id="dupeOutput" class="mono-output">Duplicate-key report will appear here.</pre>
+            </section>
+        </section>
+
+        <section class="utility-panel" data-util-panel="search">
+            <section class="panel tree-panel">
+                <h2>Large JSON Search</h2>
+                <textarea id="searchInput" spellcheck="false" aria-label="Search input"></textarea>
+                <div class="import-row">
+                    <input id="searchQuery" class="text-input" type="text" placeholder="Search key or value text" aria-label="Search query">
+                    <button id="runSearchBtn" class="btn btn-primary" type="button">Search</button>
+                </div>
+                <pre id="searchOutput" class="mono-output">Search matches will appear here.</pre>
+            </div>
+        </section>
+    </main>
+
+    <script src="./utils.js" defer></script>
+</body>
+</html>

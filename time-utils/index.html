@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Time Utils · IndiBargain</title>
+    <meta name="description" content="Check world clock zones, convert between time zones, and convert timestamps instantly.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://indibargain.com/time-utils/index.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <div class="glow glow-a" aria-hidden="true"></div>
+    <div class="glow glow-b" aria-hidden="true"></div>
+
+    <header class="site-header">
+        <a class="brand" href="/index.html">IndiBargain</a>
+        <nav class="site-nav" aria-label="Primary">
+            <a href="/blogs/index.html">Travel Blogs</a>
+            <a href="/json-utils/index.html">JSON Utils</a>
+            <a class="active" href="/time-utils/index.html" aria-current="page">Time Utils</a>
+        </nav>
+    </header>
+
+    <main class="shell">
+        <section class="hero">
+            <p class="eyebrow">Utility</p>
+            <h1>Time Utils</h1>
+            <p>Track all major time zones, convert one zone to another, and convert Unix timestamps in one place.</p>
+        </section>
+
+        <section class="panel utility-strip" aria-label="Time utility shortcuts">
+            <div class="panel-head">
+                <h2>Quick Utilities</h2>
+            </div>
+            <div class="util-grid" id="utilGrid">
+                <button class="util-chip active" type="button" data-util="clock">World Clock</button>
+                <button class="util-chip" type="button" data-util="zone">Zone Converter</button>
+                <button class="util-chip" type="button" data-util="timestamp">Timestamp Converter</button>
+            </div>
+            <p id="utilHint" class="status" role="status" aria-live="polite">Selected: World Clock</p>
+        </section>
+
+        <section class="utility-panel active" data-util-panel="clock">
+            <section class="panel" aria-label="World clock">
+                <div class="panel-head">
+                    <h2>World Clock</h2>
+                    <p id="clockStatus" class="status">Refreshing every second</p>
+                </div>
+                <div id="clockGrid" class="clock-grid"></div>
+            </section>
+        </section>
+
+        <section class="utility-panel" data-util-panel="zone">
+            <section class="panel" aria-label="Time zone converter">
+                <div class="panel-head">
+                    <h2>Zone to Zone Converter</h2>
+                </div>
+                <div class="convert-grid">
+                    <label>
+                        Date and Time
+                        <input id="convertDateTime" class="text-input" type="datetime-local">
+                    </label>
+                    <label>
+                        From Zone
+                        <select id="fromZone" class="text-input"></select>
+                    </label>
+                    <label>
+                        To Zone
+                        <select id="toZone" class="text-input"></select>
+                    </label>
+                </div>
+                <div class="actions">
+                    <button id="convertZoneBtn" class="btn btn-primary" type="button">Convert Time</button>
+                </div>
+                <pre id="zoneOutput" class="mono-output">Converted time will appear here.</pre>
+            </section>
+        </section>
+
+        <section class="utility-panel" data-util-panel="timestamp">
+            <section class="panel" aria-label="Timestamp converter">
+                <div class="panel-head">
+                    <h2>Timestamp Converter</h2>
+                </div>
+                <div class="convert-grid">
+                    <label>
+                        Timestamp (seconds or milliseconds)
+                        <input id="timestampInput" class="text-input" type="text" placeholder="Example: 1716181800 or 1716181800000">
+                    </label>
+                    <label>
+                        Output Zone
+                        <select id="timestampZone" class="text-input"></select>
+                    </label>
+                    <label>
+                        Date Time + Zone to Timestamp
+                        <input id="timestampDateTime" class="text-input" type="datetime-local">
+                    </label>
+                    <label>
+                        Input Zone
+                        <select id="timestampFromZone" class="text-input"></select>
+                    </label>
+                </div>
+                <div class="actions">
+                    <button id="tsToDateBtn" class="btn btn-primary" type="button">Timestamp to Date</button>
+                    <button id="dateToTsBtn" class="btn" type="button">Date to Timestamp</button>
+                </div>
+                <pre id="timestampOutput" class="mono-output">Timestamp conversion result will appear here.</pre>
+            </section>
+        </section>
+    </main>
+
+    <script src="./app.js" defer></script>
+</body>
+</html>
