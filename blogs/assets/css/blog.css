@@ -48,8 +48,11 @@ body {
 }
 
 .blog-header nav a:hover,
+.blog-header nav a.active,
 .blog-header nav a[aria-current="page"] {
-    color: var(--accent);
+    color: var(--text);
+    border-color: var(--panel-border);
+    background: rgba(255, 255, 255, 0.06);
 }
 
 .container {
