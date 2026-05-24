@@ -48,6 +48,10 @@ body {
 .blog-header nav a {
     color: var(--muted);
     text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    padding: 8px 14px;
+    transition: all 0.2s ease;
 }
 
 .blog-header nav a:hover,
