@@ -134,11 +134,29 @@ body {
     margin-top: 16px;
 }
 
+.utility-strip.panel {
+    padding: 12px 14px;
+}
+
+.utility-strip .panel-head {
+    gap: 6px;
+}
+
+.utility-strip h2 {
+    font-size: 0.98rem;
+}
+
 .util-grid {
     margin-top: 12px;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
     gap: 10px;
+}
+
+.utility-strip .util-grid {
+    margin-top: 8px;
+    gap: 8px;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
 }
 
 .util-chip {
@@ -149,6 +167,11 @@ body {
     color: var(--muted);
     font-weight: 600;
     cursor: pointer;
+}
+
+.utility-strip .util-chip {
+    padding: 8px 10px;
+    font-size: 0.9rem;
 }
 
 .util-chip:hover {
@@ -180,6 +203,11 @@ body {
 .status {
     color: var(--muted);
     margin: 0;
+}
+
+.utility-strip .status {
+    margin-top: 8px;
+    font-size: 0.88rem;
 }
 
 .clock-grid {
