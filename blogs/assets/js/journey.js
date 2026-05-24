@@ -64,7 +64,7 @@ async function fetchJourneyData() {
 
     for (const path of candidates) {
         try {
-            const response = await fetch(path, { cache: "no-store" });
+            const response = await fetch(path, { cache: "default" });
             if (response.ok) {
                 return await response.json();
             }
@@ -100,7 +100,7 @@ function renderJourney(items) {
 
             return `
             <article class="post-card" data-link="${href}" style="cursor: pointer;">
-                ${entry.coverImage ? `<img class="journey-cover" src="${escapeHtml(entry.coverImage)}" alt="${escapeHtml(title)}">` : ""}
+                ${entry.coverImage ? `<img class="journey-cover" src="${escapeHtml(entry.coverImage)}" alt="${escapeHtml(title)}" loading="lazy" decoding="async">` : ""}
                 <p class="eyebrow">${escapeHtml(day)}</p>
                 <h2>${escapeHtml(title)}</h2>
                 <p>${escapeHtml(excerpt)}</p>

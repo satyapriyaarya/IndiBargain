@@ -6,7 +6,7 @@ const dom = {
 
 async function loadBlogPosts() {
     try {
-        const response = await fetch(blogsEndpoint, { cache: "no-store" });
+        const response = await fetch(blogsEndpoint, { cache: "default" });
         if (!response.ok) throw new Error("Blog API failed");
         const posts = await response.json();
         renderFeaturedPosts(posts.slice(0, 3));

@@ -20,7 +20,7 @@ if (slug && JOURNEY_SERIES_ROUTES[slug]) {
 
 async function loadPost() {
     try {
-        const response = await fetch("data/posts.json", { cache: "no-store" });
+        const response = await fetch("data/posts.json", { cache: "default" });
         if (!response.ok) {
             throw new Error("Unable to load posts");
         }

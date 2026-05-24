@@ -10,7 +10,7 @@ async function fetchJourneyData() {
 
     for (const path of candidates) {
         try {
-            const response = await fetch(path, { cache: "no-store" });
+            const response = await fetch(path, { cache: "default" });
             if (response.ok) {
                 return await response.json();
             }
