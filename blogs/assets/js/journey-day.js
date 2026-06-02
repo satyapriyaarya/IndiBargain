@@ -1,6 +1,69 @@
 const journeyPost = document.getElementById("journeyPost");
+const SITE_URL = "https://indibargain.com";
+const DEFAULT_OG_IMAGE = `${SITE_URL}/blogs/assets/img/journey/016fa4f441412ff49bfa4ecb94d2d7f6a42d1b30.jpg`;
 
 let journeyItemsCache = null;
+
+function upsertMeta(attribute, key, value) {
+    if (!value) {
+        return;
+    }
+
+    let element = document.head.querySelector(`meta[${attribute}="${key}"]`);
+    if (!element) {
+        element = document.createElement("meta");
+        element.setAttribute(attribute, key);
+        document.head.appendChild(element);
+    }
+
+    element.setAttribute("content", value);
+}
+
+function setCanonical(url) {
+    let canonical = document.head.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+        canonical = document.createElement("link");
+        canonical.setAttribute("rel", "canonical");
+        document.head.appendChild(canonical);
+    }
+
+    canonical.setAttribute("href", url);
+}
+
+function toDescription(text) {
+    return String(text || "")
+        .replace(/<[^>]*>/g, " ")
+        .replace(/\s+/g, " ")
+        .trim()
+        .slice(0, 155);
+}
+
+function applyJourneySeo(entry) {
+    const title = `${entry.title || entry.day} | IndiBargain Travel Blog`;
+    const description = toDescription(entry.content || "Day-by-day India travel journey with route and planning details.") || "Day-by-day India travel journey with route and planning details.";
+    const slugPart = encodeURIComponent(entry.slug || "");
+    const pageUrl = `${SITE_URL}/journey/day/?slug=${slugPart}`;
+    const image = Array.isArray(entry.images) && entry.images.length > 0 ? entry.images[0] : DEFAULT_OG_IMAGE;
+
+    document.title = title;
+    setCanonical(pageUrl);
+
+    upsertMeta("name", "description", description);
+    upsertMeta("name", "keywords", `${entry.title || entry.day}, India travel itinerary, journey day guide, IndiBargain`);
+    upsertMeta("name", "robots", "index, follow");
+
+    upsertMeta("property", "og:type", "article");
+    upsertMeta("property", "og:title", title);
+    upsertMeta("property", "og:description", description);
+    upsertMeta("property", "og:url", pageUrl);
+    upsertMeta("property", "og:site_name", "IndiBargain");
+    upsertMeta("property", "og:image", image);
+
+    upsertMeta("name", "twitter:card", "summary_large_image");
+    upsertMeta("name", "twitter:title", title);
+    upsertMeta("name", "twitter:description", description);
+    upsertMeta("name", "twitter:image", image);
+}
 
 async function fetchJourneyData() {
     const candidates = [
@@ -183,7 +246,7 @@ function toLocalJourneyLinks(html, items) {
 }
 
 function renderEntry(entry, index, total, items) {
-    document.title = `${entry.title || entry.day} · IndiBargain Blog`;
+    applyJourneySeo(entry);
 
     const prev = index > 0 ? items[index - 1] : null;
     const next = index < total - 1 ? items[index + 1] : null;
@@ -227,6 +290,9 @@ function renderEntry(entry, index, total, items) {
 }
 
 function renderMissing() {
+    document.title = "Journey Part Not Found | IndiBargain";
+    setCanonical(`${SITE_URL}/journey/day/`);
+    upsertMeta("name", "robots", "noindex, follow");
     journeyPost.innerHTML = `
         <h1>Journey part not found</h1>
         <p>The requested part is not available.</p>
@@ -235,6 +301,8 @@ function renderMissing() {
 }
 
 function renderError() {
+    document.title = "Journey Part Unavailable | IndiBargain";
+    upsertMeta("name", "robots", "noindex, follow");
     journeyPost.innerHTML = `
         <h1>Something went wrong</h1>
         <p>Unable to load this journey part right now.</p>

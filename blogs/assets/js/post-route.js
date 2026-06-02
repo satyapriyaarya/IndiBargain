@@ -1,6 +1,8 @@
 const postShell = document.getElementById("postShell");
 const params = new URLSearchParams(window.location.search);
 const slug = params.get("slug");
+const SITE_URL = "https://indibargain.com";
+const DEFAULT_OG_IMAGE = `${SITE_URL}/blogs/assets/img/journey/016fa4f441412ff49bfa4ecb94d2d7f6a42d1b30.jpg`;
 const JOURNEY_SERIES_ROUTES = {
     "leh-ladakh-15-day-journey": "/blogs/journey/index.html",
     "valley-of-flowers-10-day-journey": "/blogs/journey/valley-of-flowers/index.html",
@@ -16,6 +18,65 @@ const JOURNEY_SERIES_ROUTES = {
 
 if (slug && JOURNEY_SERIES_ROUTES[slug]) {
     window.location.replace(JOURNEY_SERIES_ROUTES[slug]);
+}
+
+function upsertMeta(attribute, key, value) {
+    if (!value) {
+        return;
+    }
+
+    let element = document.head.querySelector(`meta[${attribute}="${key}"]`);
+    if (!element) {
+        element = document.createElement("meta");
+        element.setAttribute(attribute, key);
+        document.head.appendChild(element);
+    }
+
+    element.setAttribute("content", value);
+}
+
+function setCanonical(url) {
+    let canonical = document.head.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+        canonical = document.createElement("link");
+        canonical.setAttribute("rel", "canonical");
+        document.head.appendChild(canonical);
+    }
+
+    canonical.setAttribute("href", url);
+}
+
+function toDescription(text) {
+    return String(text || "")
+        .replace(/<[^>]*>/g, " ")
+        .replace(/\s+/g, " ")
+        .trim()
+        .slice(0, 155);
+}
+
+function applyPostSeo(post) {
+    const title = `${post.title} | IndiBargain Travel Blog`;
+    const description = toDescription(post.excerpt || post.content || "Read travel insights and practical itineraries.") || "Read travel insights and practical itineraries.";
+    const postUrl = `${SITE_URL}/blogs/post/?slug=${encodeURIComponent(post.slug || "")}`;
+
+    document.title = title;
+    setCanonical(postUrl);
+
+    upsertMeta("name", "description", description);
+    upsertMeta("name", "keywords", `${post.title || "India travel"}, India travel blog, destination guide India, travel itinerary India`);
+    upsertMeta("name", "robots", "index, follow");
+
+    upsertMeta("property", "og:type", "article");
+    upsertMeta("property", "og:title", title);
+    upsertMeta("property", "og:description", description);
+    upsertMeta("property", "og:url", postUrl);
+    upsertMeta("property", "og:site_name", "IndiBargain");
+    upsertMeta("property", "og:image", DEFAULT_OG_IMAGE);
+
+    upsertMeta("name", "twitter:card", "summary_large_image");
+    upsertMeta("name", "twitter:title", title);
+    upsertMeta("name", "twitter:description", description);
+    upsertMeta("name", "twitter:image", DEFAULT_OG_IMAGE);
 }
 
 async function loadPost() {
@@ -46,7 +107,7 @@ async function loadPost() {
 }
 
 function renderPost(post) {
-    document.title = `${post.title} · IndiBargain Blog`;
+    applyPostSeo(post);
     const linkedContent = (post.content || "")
         .replace(/journey\/index\.html/g, '<a href="/blogs/journey/index.html">journey/index.html</a>')
         .replace(/\n/g, "<br><br>");
@@ -65,6 +126,9 @@ function renderPost(post) {
 }
 
 function renderMissing() {
+    document.title = "Post Not Found | IndiBargain Blogs";
+    setCanonical(`${SITE_URL}/blogs/post/`);
+    upsertMeta("name", "robots", "noindex, follow");
     postShell.innerHTML = `
         <h1>Post not found</h1>
         <p>The article you are looking for is not available.</p>
@@ -73,6 +137,8 @@ function renderMissing() {
 }
 
 function renderError() {
+    document.title = "Post Unavailable | IndiBargain Blogs";
+    upsertMeta("name", "robots", "noindex, follow");
     postShell.innerHTML = `
         <h1>Something went wrong</h1>
         <p>Unable to load this article right now.</p>
