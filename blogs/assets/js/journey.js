@@ -92,7 +92,7 @@ function renderJourney(items) {
 
     journeyGrid.innerHTML = items
         .map((entry, index) => {
-            const href = `/journey/day/#${encodeURIComponent(entry.slug)}`;
+            const href = `/journey/day/${encodeURIComponent(entry.slug)}/`;
             const title = sanitizeCardTitle(entry);
             const excerpt = sanitizeCardExcerpt(entry, title);
             const day = cleanText(entry.day || `Day ${index + 1}`);

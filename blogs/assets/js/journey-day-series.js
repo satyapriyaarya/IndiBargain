@@ -454,9 +454,9 @@ async function renderEntryAsync(entry, index, total, items) {
         <div class="post-content">${toHtml(entry.content)}${renderTravelEssentials(entry, index !== 0)}</div>
         <p class="post-source"><a href="${entry.sourceUrl}" target="_blank" rel="noopener">Reference link &nearr;</a></p>
         <div class="journey-nav">
-            ${prev ? `<a href="${basePath}/day/#${encodeURIComponent(prev.slug)}">&larr; ${prev.day}</a>` : "<span></span>"}
+            ${prev ? `<a href="${basePath}/day/${encodeURIComponent(prev.slug)}/">&larr; ${prev.day}</a>` : "<span></span>"}
             <a href="${basePath}/index.html">All parts</a>
-            ${next ? `<a href="${basePath}/day/#${encodeURIComponent(next.slug)}">${next.day} &rarr;</a>` : "<span></span>"}
+            ${next ? `<a href="${basePath}/day/${encodeURIComponent(next.slug)}/">${next.day} &rarr;</a>` : "<span></span>"}
         </div>
     `;
 }

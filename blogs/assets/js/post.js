@@ -57,7 +57,7 @@ function toDescription(text) {
 function applyPostSeo(post) {
     const title = `${post.title} | IndiBargain Travel Blog`;
     const description = toDescription(post.excerpt || post.content || "Read travel insights and practical itineraries.") || "Read travel insights and practical itineraries.";
-    const postUrl = `${SITE_URL}/blogs/post/?slug=${encodeURIComponent(post.slug || "")}`;
+    const postUrl = `${SITE_URL}/blogs/post/${encodeURIComponent(post.slug || "")}/`;
 
     document.title = title;
     setCanonical(postUrl);

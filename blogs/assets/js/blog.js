@@ -46,7 +46,7 @@ function renderPosts(posts) {
         .map(post => {
             const postHref = journeyRoutes[post.slug]
                 ? journeyRoutes[post.slug]
-                : `post.html?slug=${encodeURIComponent(post.slug)}`;
+                : `post/${encodeURIComponent(post.slug)}/`;
 
             if (post.slug === PRIMARY_BLOG_SLUG) {
                 return `

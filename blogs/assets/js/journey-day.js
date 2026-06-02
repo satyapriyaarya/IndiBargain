@@ -42,7 +42,7 @@ function applyJourneySeo(entry) {
     const title = `${entry.title || entry.day} | IndiBargain Travel Blog`;
     const description = toDescription(entry.content || "Day-by-day India travel journey with route and planning details.") || "Day-by-day India travel journey with route and planning details.";
     const slugPart = encodeURIComponent(entry.slug || "");
-    const pageUrl = `${SITE_URL}/journey/day/?slug=${slugPart}`;
+    const pageUrl = `${SITE_URL}/journey/day/${slugPart}/`;
     const image = Array.isArray(entry.images) && entry.images.length > 0 ? entry.images[0] : DEFAULT_OG_IMAGE;
 
     document.title = title;
@@ -236,7 +236,7 @@ function toLocalJourneyLinks(html, items) {
             const mappedSlug = slugByPath.get(pathKey);
 
             if (mappedSlug) {
-                anchor.setAttribute("href", `/journey/day/#${encodeURIComponent(mappedSlug)}`);
+                anchor.setAttribute("href", `/journey/day/${encodeURIComponent(mappedSlug)}/`);
             }
         } catch (error) {
         }
@@ -258,9 +258,9 @@ function renderEntry(entry, index, total, items) {
             <div class="legacy-content">${legacyHtml}</div>
             <p class="post-source"><a href="${entry.sourceUrl}" target="_blank" rel="noopener">View original source ↗</a></p>
             <div class="journey-nav">
-                ${prev ? `<a href="/journey/day/#${encodeURIComponent(prev.slug)}">← ${prev.day}</a>` : "<span></span>"}
+                ${prev ? `<a href="/journey/day/${encodeURIComponent(prev.slug)}/">← ${prev.day}</a>` : "<span></span>"}
                 <a href="/journey/index.html">All parts</a>
-                ${next ? `<a href="/journey/day/#${encodeURIComponent(next.slug)}">${next.day} →</a>` : "<span></span>"}
+                ${next ? `<a href="/journey/day/${encodeURIComponent(next.slug)}/">${next.day} →</a>` : "<span></span>"}
             </div>
         `;
 
@@ -282,9 +282,9 @@ function renderEntry(entry, index, total, items) {
         <div class="post-content">${toHtml(entry.content)}</div>
         <p class="post-source"><a href="${entry.sourceUrl}" target="_blank" rel="noopener">View original source ↗</a></p>
         <div class="journey-nav">
-            ${prev ? `<a href="/journey/day/#${encodeURIComponent(prev.slug)}">← ${prev.day}</a>` : "<span></span>"}
+            ${prev ? `<a href="/journey/day/${encodeURIComponent(prev.slug)}/">← ${prev.day}</a>` : "<span></span>"}
             <a href="/journey/index.html">All parts</a>
-            ${next ? `<a href="/journey/day/#${encodeURIComponent(next.slug)}">${next.day} →</a>` : "<span></span>"}
+            ${next ? `<a href="/journey/day/${encodeURIComponent(next.slug)}/">${next.day} →</a>` : "<span></span>"}
         </div>
     `;
 }

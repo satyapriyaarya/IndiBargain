@@ -90,7 +90,7 @@ function renderJourney(items) {
 
     journeyGrid.innerHTML = items
         .map((entry, index) => `
-            <article class="post-card" data-link="/blogs/journey/valley-of-flowers/day/#${encodeURIComponent(entry.slug)}" style="cursor: pointer;">
+            <article class="post-card" data-link="/blogs/journey/valley-of-flowers/day/${encodeURIComponent(entry.slug)}/" style="cursor: pointer;">
                 ${entry.coverImage ? `<img class="journey-cover" src="${entry.coverImage}" alt="${entry.title || entry.day}">` : ""}
                 <p class="eyebrow">${entry.day}</p>
                 <h2>${entry.title || entry.day}</h2>
@@ -99,7 +99,7 @@ function renderJourney(items) {
                     <span>${new Date(entry.date).toLocaleDateString()}</span>
                     <span>Part ${index + 1} / ${items.length}</span>
                 </p>
-                <p><a href="/blogs/journey/valley-of-flowers/day/#${encodeURIComponent(entry.slug)}">Read this part →</a></p>
+                <p><a href="/blogs/journey/valley-of-flowers/day/${encodeURIComponent(entry.slug)}/">Read this part →</a></p>
             </article>
         `)
         .join("");

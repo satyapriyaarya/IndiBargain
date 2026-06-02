@@ -53,7 +53,7 @@ function toAbsoluteImageUrl(path) {
 function applyJourneySeo(entry) {
     const title = `${entry.title || entry.day} | Assam Journey | IndiBargain`;
     const description = toDescription(entry.content || "Day-by-day Assam travel journey with route and planning details.") || "Day-by-day Assam travel journey with route and planning details.";
-    const pageUrl = `${SITE_URL}/blogs/journey/assam/day/?slug=${encodeURIComponent(entry.slug || "")}`;
+    const pageUrl = `${SITE_URL}/blogs/journey/assam/day/${encodeURIComponent(entry.slug || "")}/`;
     const primaryImage = Array.isArray(entry.images) && entry.images.length > 0 ? entry.images[0] : "";
     const image = toAbsoluteImageUrl(primaryImage);
 
@@ -354,9 +354,9 @@ async function renderEntryAsync(entry, index, total, items) {
         <div class="post-content">${toHtml(entry.content)}${renderTravelEssentials(entry, index !== 0)}</div>
         <p class="post-source"><a href="${entry.sourceUrl}" target="_blank" rel="noopener">Reference link &nearr;</a></p>
         <div class="journey-nav">
-            ${prev ? `<a href="/blogs/journey/assam/day/#${encodeURIComponent(prev.slug)}">&larr; ${prev.day}</a>` : "<span></span>"}
+            ${prev ? `<a href="/blogs/journey/assam/day/${encodeURIComponent(prev.slug)}/">&larr; ${prev.day}</a>` : "<span></span>"}
             <a href="/blogs/journey/assam/index.html">All parts</a>
-            ${next ? `<a href="/blogs/journey/assam/day/#${encodeURIComponent(next.slug)}">${next.day} &rarr;</a>` : "<span></span>"}
+            ${next ? `<a href="/blogs/journey/assam/day/${encodeURIComponent(next.slug)}/">${next.day} &rarr;</a>` : "<span></span>"}
         </div>
     `;
 }
