@@ -146,6 +146,39 @@ function ensureTrailingSlash(urlPath) {
   return urlPath.endsWith("/") ? urlPath : `${urlPath}/`;
 }
 
+function urlEntry(u) {
+  return {
+    loc: fullUrl(u),
+    lastmod: TODAY,
+    changefreq: u.includes("/day/") || u.includes("/post/") ? "weekly" : "daily",
+    priority: u === "/" ? "1.0" : u.includes("/blogs/") ? "0.8" : "0.7"
+  };
+}
+
+function writeUrlSet(fileName, entries) {
+  const xml = [
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+    "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">",
+    ...entries.map((entry) => `  <url><loc>${entry.loc}</loc><lastmod>${entry.lastmod}</lastmod><changefreq>${entry.changefreq}</changefreq><priority>${entry.priority}</priority></url>`),
+    "</urlset>",
+    ""
+  ].join("\n");
+
+  writeFile(path.join(ROOT, fileName), xml);
+}
+
+function writeSitemapIndex(fileName, childSitemaps) {
+  const xml = [
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+    "<sitemapindex xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">",
+    ...childSitemaps.map((name) => `  <sitemap><loc>${fullUrl(`/${name}`)}</loc><lastmod>${TODAY}</lastmod></sitemap>`),
+    "</sitemapindex>",
+    ""
+  ].join("\n");
+
+  writeFile(path.join(ROOT, fileName), xml);
+}
+
 function build() {
   const generatedUrls = new Set();
 
@@ -232,19 +265,32 @@ function build() {
     "/time-utils/"
   ];
 
-  const allUrls = new Set([...staticCore.map(ensureTrailingSlash), ...generatedUrls]);
-  const sitemap = [
-    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
-    "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">",
-    ...Array.from(allUrls)
-      .sort()
-      .map((u) => `  <url><loc>${fullUrl(u)}</loc><lastmod>${TODAY}</lastmod><changefreq>${u.includes('/day/') || u.includes('/post/') ? 'weekly' : 'daily'}</changefreq><priority>${u === '/' ? '1.0' : u.includes('/blogs/') ? '0.8' : '0.7'}</priority></url>`),
-    "</urlset>",
-    ""
-  ].join("\n");
+  const allUrls = Array.from(new Set([...staticCore.map(ensureTrailingSlash), ...generatedUrls])).sort();
 
-  writeFile(path.join(ROOT, "sitemap.xml"), sitemap);
-  console.log(`Generated ${generatedUrls.size} static content URLs and sitemap with ${allUrls.size} entries.`);
+  const postsUrls = allUrls.filter((u) => u.startsWith("/blogs/post/"));
+  const journeyDayUrls = allUrls.filter((u) => u.includes("/day/"));
+  const utilitiesUrls = allUrls.filter((u) => ["/json-utils/", "/time-utils/"].includes(u));
+
+  const coreUrls = allUrls.filter((u) =>
+    !postsUrls.includes(u) &&
+    !journeyDayUrls.includes(u) &&
+    !utilitiesUrls.includes(u)
+  );
+
+  const sitemapFiles = [
+    "sitemap-core.xml",
+    "sitemap-posts.xml",
+    "sitemap-journey-days.xml",
+    "sitemap-utilities.xml"
+  ];
+
+  writeUrlSet("sitemap-core.xml", coreUrls.map(urlEntry));
+  writeUrlSet("sitemap-posts.xml", postsUrls.map(urlEntry));
+  writeUrlSet("sitemap-journey-days.xml", journeyDayUrls.map(urlEntry));
+  writeUrlSet("sitemap-utilities.xml", utilitiesUrls.map(urlEntry));
+  writeSitemapIndex("sitemap.xml", sitemapFiles);
+
+  console.log(`Generated ${generatedUrls.size} static content URLs and ${sitemapFiles.length} section sitemaps with index.`);
 }
 
 build();
